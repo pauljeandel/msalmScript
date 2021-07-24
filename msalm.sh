@@ -111,6 +111,7 @@ share() {
      if [ $1 ] && [[ ! ${str:0:1} == "-" ]]; then
 
           echo "Serving on : $1"
+          echo "[ INFO ] : Config port : $port "
           cd $1
 
      else
@@ -122,7 +123,7 @@ share() {
                mkdir $sharedFolderName
                echo "[ INFO ] : Creation du dossier $sharedFolderName dans le dossier $sharedFolderDirectory"
           fi
-          echo "[ INFO ] : Using config port : $port "
+          echo "[ INFO ] : Config port : $port "
           cd $sharedFolderName
      fi
      echo "[ Quit : Ctrl + C ]"
@@ -160,7 +161,13 @@ openshare() {
           echo "[ INFO ] Ouverture du lien ShareService de $2 à l'adresse : $link "
           xdg-open $link
      else
-          echo "[ ERREUR ] Usage : bash msalm.sh -os <PERSON> "
+          echo "[ ERREUR ] OpenShareServiceRemote Usage : bash msalm.sh -osr <PERSON> "
+          #display assArray1 in one line
+          echo "[ INFO ] PERSON is in the following : "
+          for key in ${!assArray1[@]}; do
+               echo ">    $key"
+          done
+          exit 0
      fi
 }
 
@@ -179,7 +186,13 @@ openIonicRemote() {
           echo "[ INFO ] Ouverture du lien Ionic de $2 à l'adresse : $link "
           xdg-open $link
      else
-          echo "[ ERREUR ] Usage : bash msalm.sh -osr <PERSON> "
+          echo "[ ERREUR ] IonicShareRemote Usage : bash msalm.sh -osr <PERSON> "
+          #display assArray1 in one line
+          echo "[ INFO ] PERSON is in the following : "
+          for key in ${!assArray1[@]}; do
+               echo ">    $key"
+          done
+          exit 0
      fi
 }
 
@@ -279,8 +292,9 @@ testDev() {
 
 helper() {
      echo "------------------------------------------------------------------------------------------------------------------------------"
-     echo "[ INFO ] Script configuré pour $projectName"
-     echo "[ INFO ] Usage : bash msalm.sh -[COMMAND] <ARGS> --[OPTION] "
+     echo ""
+     echo "[ INFO ] Script configuré pour : $projectName"
+     echo "[ INFO ] Usage : bash msalm.sh [COMMAND] <ARGS> --[OPTION] "
      echo ""
      echo "  help, -h                                   Affiche ce message et quitte"
      echo "  scriptInstall, -si                         NE PAS UTILISER GENRE VRAIMENT PAS DU TOUT Installe ce script de manière définitive. Nécessite les privilèges Root ( Marche pas )"
@@ -304,12 +318,16 @@ helper() {
      echo "              --init                                    Initialise le projet Symphony ( TODO )"
      echo ""
      echo "[ INFO ] Git project : $gitProjectLink"
-     echo "[ INFO ] Release note : https://github.com/$gitAccount/$projectName/releases/tag/$version"
+     echo "[ INFO ] Release note : https://github.com/$gitAccount/$repoName/releases/tag/$version"
+     echo ""
      echo "------------------------------------------------------------------------------------------------------------------------------"
 }
 
 source config_default.txt
+source config_perso.txt
+echo ""
 checkForMajorUpdate
+echo ""
 until [ ! $1 ]; do
      case $1 in
      "-h" | "help") helper ;;
