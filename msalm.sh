@@ -1,19 +1,19 @@
 #!/bin/bash
 
 update() {
-     cd $HOME/bin/$scriptRootFolder
-     git pull
-     if [ ! $? -eq 0 ]; then
-               echo "[ ERREUR ] Mise à jour impossible"
+     cd "$HOME"/bin/"$scriptRootFolder" || exit
+
+     if ! git pull; then
+          echo "[ ERREUR ] Mise à jour impossible"
      else
-               echo ""
-               echo "[ INFO ] Le script est à jour."
-               helper
+          echo ""
+          echo "[ INFO ] Le script est à jour."
+          helper
      fi
 }
 
 ionicEnv() {
-     cd $HOME$ionicAppFolder
+     cd "$HOME""$ionicAppFolder" || exit
      code . #Sorry cédric
      xterm -e "bash -c \"cd $HOME$ionicAppFolder && ionic serve --external  ; exec bash\"" &
      if [ ! $? -eq 0 ]; then
@@ -31,7 +31,7 @@ ionicEnvWS() {
           echo "[ INFO ] Installation de wmctrl ( Workspace controler ) : "
           sudo apt install wmctrl
      fi
-     cd $HOME$ionicAppFolder
+     cd "$HOME""$ionicAppFolder" || exit
      code . #Sorry cédric
      sleep 4
      wmctrl -s "0"
@@ -53,7 +53,7 @@ ionicEnvWS() {
 }
 
 ionicUpdate() {
-     cd $HOME$ionicAppFolder
+     cd "$HOME""$ionicAppFolder" || exit
      git pull
      if [ ! $? -eq 0 ]; then
           echo "[ ERREUR ] Mise à jour du projet git impossible"
@@ -68,7 +68,7 @@ ionicUpdate() {
      else
           echo "[ INFO ] Mise à jour des modules npm effectuée"
      fi
-     if [ $2 ] && [ $2 = "--open" ]; then
+     if [ "$2" ] && [ "$2" = "--open" ]; then
           xterm -e "bash -c \"cd $HOME$ionicAppFolder && ionic serve --external  ; exec bash\"" &
           if [ ! $? -eq 0 ]; then
                echo "[ ERREUR ] Ionic serve Failed "
@@ -80,7 +80,7 @@ ionicUpdate() {
 }
 
 sfUpdate() {
-     cd $HOME$symphonyAppFolder
+     cd "$HOME""$symphonyAppFolder" || exit
      git pull
      if [ ! $? -eq 0 ]; then
           echo "[ ERREUR ] Mise à jour du projet impossible"
@@ -97,7 +97,7 @@ sfUpdate() {
 }
 
 sfEnv() {
-     cd $HOME$symphonyAppFolder
+     cd "$HOME""$symphonyAppFolder" || exit
      code . #Sorry cédric
      xterm -e "bash -c \"postman; exec bash\"" &
 }
@@ -110,31 +110,31 @@ share() {
      echo "----------------------------------"
      echo ""
      shift
-     if [ $1 ] && [[ ! ${str:0:1} == "-" ]]; then
+     if [ "$1" ] && [[ ! ${str:0:1} == "-" ]]; then
 
           echo "Serving on : $1"
           echo "[ INFO ] : Config port : $port "
-          cd $1
+          cd "$1" || exit
 
      else
 
           echo "[ INFO ] : No PATH - Serving on config default : $HOME$sharedFolderDirectory/$sharedFolderName"
 
-          cd $HOME$sharedFolderDirectory
-          if [ ! -d $sharedFolderName ]; then
-               mkdir $sharedFolderName
+          cd "$HOME""$sharedFolderDirectory" || exit
+          if [ ! -d "$sharedFolderName" ]; then
+               mkdir "$sharedFolderName"
                echo "[ INFO ] : Creation du dossier $sharedFolderName dans le dossier $sharedFolderDirectory"
           fi
           echo "[ INFO ] : Config port : $port "
-          cd $sharedFolderName
+          cd "$sharedFolderName" || exit
      fi
      echo "[ Quit : Ctrl + C ]"
      echo ""
-     python3 -m http.server $port
+     python3 -m http.server "$port"
      if [ ! $? -eq 0 ]; then
           echo "[ WARNING ] Python3 server failed"
           echo "[ INFO ] Trying Python ..."
-          python -m SimpleHTTPServer $port
+          python -m SimpleHTTPServer "$port"
           if [ ! $? -eq 0 ]; then
                echo "[ WARNING ] Python server failed. Please verify your python3 or python install"
                echo "[ INFO ] Usage : bash msalm.sh -s <PATH> "
@@ -155,13 +155,13 @@ openshare() {
      assArray1[momo]=$ipMomo
 
      str=$2
-     if [ $2 ] && [[ ! ${str:0:1} == "-" ]] && [[ ! ${str:0:1} == "--" ]]; then
+     if [ "$2" ] && [[ ! ${str:0:1} == "-" ]] && [[ ! ${str:0:1} == "--" ]]; then
 
           header="http://"
           dots=":"
           link=$header${assArray1[$2]}$dots$port
           echo "[ INFO ] Ouverture du lien ShareService de $2 à l'adresse : $link "
-          xdg-open $link
+          xdg-open "$link"
      else
           echo "[ ERREUR ] OpenShareServiceRemote Usage : bash msalm.sh -osr <PERSON> "
           #display assArray1 in one line
@@ -181,12 +181,12 @@ openIonicRemote() {
      assArray1[momo]=$ipMomo
 
      str=$2
-     if [[ ! ${str:0:1} == "-" ]] && [[ ! ${str:0:1} == "--" ]] && [ $2 ]; then
+     if [[ ! ${str:0:1} == "-" ]] && [[ ! ${str:0:1} == "--" ]] && [ "$2" ]; then
           header="http://"
           dots=":"
           link=$header${assArray1[$2]}$dots$portDefaultIonicRemote
           echo "[ INFO ] Ouverture du lien Ionic de $2 à l'adresse : $link "
-          xdg-open $link
+          xdg-open "$link"
      else
           echo "[ ERREUR ] IonicShareRemote Usage : bash msalm.sh -osr <PERSON> "
           #display assArray1 in one line
@@ -203,18 +203,18 @@ scriptInstall() {
           echo "Vous devez avoir les privilèges root pour installer ce script"
           [ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
      else
-          cd $HOME/bin
+          cd "$HOME"/bin || exit
           if [ ! -d "$scriptRootFolder" ]; then
-               mkdir -m 777 $scriptRootFolder
-               cd $scriptRootFolder
-               git clone $gitProjectLink
+               mkdir -m 777 "$scriptRootFolder"
+               cd "$scriptRootFolder" || exit
+               git clone "$gitProjectLink"
                if [ ! $? -eq 0 ]; then
                     echo "[ ERREUR ] Récupération depuis git impossible. Abandon"
                     exit 0
                else
                     echo "[ INFO ] Script installé !"
                fi
-               echo '[ IMPORTANT ] Ajoutez la ligne < export PATH=$PATH:$HOME/bin/$scriptRootFolder > à votre fichier bashrc'
+               echo "[ IMPORTANT ] Ajoutez la ligne < export PATH=$PATH:$HOME/bin/$scriptRootFolder > à votre fichier bashrc"
                echo "Man : bash msalm.sh -help "
           else
                echo "[ ERROR ] Le dossier $scriptRootFolder existe déjà, installation impossible."
@@ -225,11 +225,11 @@ scriptInstall() {
 
 checkForMajorUpdate() {
 
-     content=$(wget $githubReleaseAPILink -q -O -)
+     content=$(wget "$githubReleaseAPILink" -q -O -)
      #put the value of the last release in a variable
      lastRelease=$(echo "$content" | tr ' ' '\n' | grep -n refs/tags/ | grep -oP '(?<=refs\/tags\/)[^"]*')
 
-     if [ ${lastRelease:0:1} ] && [ ${lastRelease:0:1} -gt ${version:0:1} ]; then
+     if [ "${lastRelease:0:1}" ] && [ "${lastRelease:0:1}" -gt "${version:0:1}" ]; then
           echo ""
           echo "----------------------------MISE A JOUR MAJEURE DISPONIBLE-----------------------------"
           echo "Latest version : ${lastRelease:0:1}.X sur $gitProjectLink"
@@ -252,12 +252,12 @@ checkForMajorUpdate() {
 
 checkForMinorUpdate() {
 
-     content=$(wget $githubReleaseAPILink -q -O -)
+     content=$(wget "$githubReleaseAPILink" -q -O -)
      #put the value of the last release in a variable
      Releases=$(echo "$content" | tr ' ' '\n' | grep -n refs/tags/ | grep -oP '(?<=refs\/tags\/)[^"]*')
      #echo "Last release : $lastRelease"
      lastRelease="${Releases##*$'\n'}"
-     if [ ${lastRelease:2:3} ] && [ ${lastRelease:2:3} -gt ${version:2:3} ]; then
+     if [ "${lastRelease:2:3}" ] && [ "${lastRelease:2:3}" -gt "${version:2:3}" ]; then
           echo ""
           echo "----------------------------MISE A JOUR MINEURE DISPONIBLE-----------------------------"
           echo "Latest version : ${lastRelease:0:3} sur $gitProjectLink"
@@ -281,10 +281,6 @@ testDev() {
      echo ""
      echo "============================DEV TEST ==================================="
      echo ""
-
-
-
-
 
      echo ""
      echo "========================================================================"
@@ -330,12 +326,12 @@ source config_perso.txt
 echo ""
 checkForMajorUpdate
 echo ""
-until [ ! $1 ]; do
+until [ ! "$1" ]; do
      case $1 in
      "-h" | "help") helper ;;
      "version" | "-v") echo "Version : $version" ;;
      "update") update ;;
-     #"scriptInstall" | "-si") scriptInstall ;;
+          #"scriptInstall" | "-si") scriptInstall ;;
      "share" | "-s") share $@ ;;
      "openShareRemote" | "-osr")
           openshare $@
@@ -354,7 +350,7 @@ until [ ! $1 ]; do
      "ionicEnv" | "-ie") ionicEnv ;;
      "ionicUpdate" | "-iu")
           ionicUpdate $@
-          if [ $2 ] &&  [ $2 = "--open" ] || [ $2 = "--init" ]; then
+          if [ "$2" ] && [ "$2" = "--open" ] || [ "$2" = "--init" ]; then
                shift
           fi
           ;;
@@ -367,7 +363,7 @@ until [ ! $1 ]; do
      "-ieu" | "-iue") exec bash "$0" "-iu" "-ie" ;;
      "-sfeu" | "-sfue") exec bash "$0" "-sfu" "-sfe" ;;
      "ionicEnv--flemme" | "-ief") ionicEnvWS ;;
-     "editScript" | "-es") cd $HOME/bin && code . ;;
+     "editScript" | "-es") cd "$HOME"/bin && code . ;;
      "--testDev" | "--dev") testDev ;;
      "")
           echo "OPTION INVALIDE : $1"
@@ -383,6 +379,3 @@ until [ ! $1 ]; do
      esac
      shift
 done
-
-
-
