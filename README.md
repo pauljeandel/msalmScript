@@ -15,4 +15,3 @@
  -sfenv, -sfe                                Lance l'environnement de dévellopement Symphony ( TODO )"<br/>
  -sfupdate, -sfu [options]                   Met à jour le projet Symphony ( Git + Composer + Docktrin )"<br/>
                 --init <PATH> <GIT-URL>                   Initialise le projet Symphony ( TODO )<br/>
-
