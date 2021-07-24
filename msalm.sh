@@ -1,3 +1,5 @@
+#!/bin/bash
+
 update() {
      cd $HOME/bin/$scriptRootFolder
      git pull
