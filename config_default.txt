@@ -6,7 +6,8 @@ scriptRootFolder=msalmScript
 gitProjectLink=https://github.com/pauljeandel/msalmScript.git
 githubReleaseAPILink=https://api.github.com/repos/pauljeandel/msalmScript/git/refs/tags
 
-ipPaulj="192.168.1.28"
-ipPaulm=192.168.1.2
+infoaAddDev="Ajout d'un développeur : ci-dessous + msalm.sh -> (openIonicRemote() + openShare()) "
+ipPaulJ="192.168.1.28"
+ipPaulM=192.168.1.2
 ipCedric=192.168.1.3
 ipMomo=192.168.1.4

@@ -173,8 +173,8 @@ openshare() {
 
 openIonicRemote() {
      declare -A assArray1
-     assArray1[paulj]=$ipPaulj
-     assArray1[paulm]=$ipPaulm
+     assArray1[paulj]=$ipPaulJ
+     assArray1[paulm]=$ipPaulM
      assArray1[cedric]=$ipCedric
      assArray1[momo]=$ipMomo
 
