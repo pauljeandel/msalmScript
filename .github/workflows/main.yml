@@ -28,7 +28,7 @@ jobs:
       - name: Check script basic
         id: step_one
         run: |
-          bash msalm.sh -h
+          bash msalm.sh -h --dev
 
       - name: Shell Linter
         # You may pin to the exact commit or the version.
