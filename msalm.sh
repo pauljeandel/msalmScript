@@ -5,8 +5,7 @@ update() {
                echo "[ ERREUR ] Mise à jour impossible"
      else
                echo ""
-               echo "[ INFO ] Le script est à jour. Version : $version"
-               echo "[ INFO ] Release note : https://github.com/$gitAccount/$projectName/releases/tag/$version"
+               echo "[ INFO ] Le script est à jour."
                helper
      fi
 }
@@ -280,8 +279,8 @@ testDev() {
 
 helper() {
      echo "------------------------------------------------------------------------------------------------------------------------------"
-     echo "Script configuré pour $projectName"
-     echo "Usage : bash msalm.sh -[COMMAND] <ARGS> --[OPTION] "
+     echo "[ INFO ] Script configuré pour $projectName"
+     echo "[ INFO ] Usage : bash msalm.sh -[COMMAND] <ARGS> --[OPTION] "
      echo ""
      echo "  help, -h                                   Affiche ce message et quitte"
      echo "  scriptInstall, -si                         NE PAS UTILISER GENRE VRAIMENT PAS DU TOUT Installe ce script de manière définitive. Nécessite les privilèges Root ( Marche pas )"
@@ -292,19 +291,20 @@ helper() {
      echo ""
      echo "  share, -s <PATH>                           Partage le dossier spécifié sur le réseau local. Port : $port"
      echo "                                             Default :  $HOME$sharedFolderDirectory/$sharedFolderName "
-     echo "  openShareRemote, -osr <PERSON>                    Ouvre le lien de partage de fichier. PERSON = [ paulj , paulm , cedric , momo ]"
+     echo "  openShareRemote, -osr <PERSON>             Ouvre le lien de partage de fichier. PERSON = [ paulj , paulm , cedric , momo ]"
+     echo "  openIonicRemote, -oir <PERSON>             Ouvre le preview ionic à distance. PERSON = [ paulj , paulm , cedric , momo ]"
      echo ""
      echo "  ionicenv, -ie                              Lance l'environnement de dévellopement Ionic"
      echo "  ionicupdate, -iu [options]                 Met à jour le projet Ionic ( Git + Nodes modules )"
      echo "              --init                                    Inititialise le projet Ionic ( Git + Nodes modules + ionic )( TODO )"
      echo "              --open                                    Lance le serveur ionic"
-     echo "  openIonicRemote, -oir <PERSON>             Ouvre le preview ionic à distance. PERSON = [ paulj , paulm , cedric , momo ]"
      echo ""
      echo "  sfenv, -sfe                                Lance l'environnement de dévellopement Symphony ( TODO )"
      echo "  sfupdate, -sfu [options]                   Met à jour le projet Symphony ( Git + Composer + Docktrin )"
      echo "              --init                                    Initialise le projet Symphony ( TODO )"
      echo ""
-     echo "Git project : $gitProjectLink"
+     echo "[ INFO ] Git project : $gitProjectLink"
+     echo "[ INFO ] Release note : https://github.com/$gitAccount/$projectName/releases/tag/$version"
      echo "------------------------------------------------------------------------------------------------------------------------------"
 }
 
