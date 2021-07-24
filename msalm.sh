@@ -1,5 +1,5 @@
 update() {
-     cd $HOME/bin/msalmScript
+     cd $HOME/bin/$scriptRootFolder
      git pull
 }
 
@@ -108,13 +108,15 @@ share() {
 
      else
 
-          echo "[ WARNING ] : No PATH - Serving on default : $HOME$sharedFolder/MsalmShared"
-          cd $HOME$sharedFolder
-          if [ ! -d MsalmShared ]; then
-               mkdir MsalmShared
-               echo "[ INFO ] : Creation du dossier MsalmShared dans le dossier $sharedFolder"
+          echo "[ INFO ] : No PATH - Serving on config default : $HOME$sharedFolderDirectory/$sharedFolderName"
+
+          cd $HOME$sharedFolderDirectory
+          if [ ! -d $sharedFolderName ]; then
+               mkdir $sharedFolderName
+               echo "[ INFO ] : Creation du dossier $sharedFolderName dans le dossier $sharedFolderDirectory"
           fi
-          cd MsalmShared
+          echo "[ INFO ] : Using config port : $port "
+          cd $sharedFolderName
      fi
      echo "[ Quit : Ctrl + C ]"
      echo ""
@@ -124,7 +126,7 @@ share() {
           echo "[ INFO ] Trying Python ..."
           python -m SimpleHTTPServer $port
           if [ ! $? -eq 0 ]; then
-               echo "[ WARNING ] Python server failed"
+               echo "[ WARNING ] Python server failed. Please verify your python3 or python install"
                echo "[ INFO ] Usage : bash msalm.sh -s <PATH> "
                exit 1
           fi
@@ -180,30 +182,36 @@ scriptInstall() {
           [ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
      else
           cd $HOME/bin
-          if [ ! -d "msalmScript" ]; then
-               mkdir -m 777 msalmScript
-               mv msalm.sh $HOME/bin/msalmScript/msalm.sh
-               echo "Script installé !"
-               echo '[ IMPORTANT ] Ajoutez la ligne < export PATH=$PATH:$HOME/bin/msalmScript > à votre fichier bashrc'
+          if [ ! -d "$scriptRootFolder" ]; then
+               mkdir -m 777 $scriptRootFolder
+               cd $scriptRootFolder
+               git clone $gitProjectLink
+               if [ ! $? -eq 0 ]; then
+                    echo "[ ERREUR ] Récupération depuis git impossible. Abandon"
+                    exit 0
+               else
+                    echo "[ INFO ] Script installé !"
+               fi
+               echo '[ IMPORTANT ] Ajoutez la ligne < export PATH=$PATH:$HOME/bin/$scriptRootFolder > à votre fichier bashrc'
                echo "Man : bash msalm.sh -help "
           else
-               echo "[ ERROR ] Le dossier msalmScript existe déjà, installation impossible."
+               echo "[ ERROR ] Le dossier $scriptRootFolder existe déjà, installation impossible."
                exit 1
           fi
      fi
 }
 
-checkForUpdate() {
+checkForMajorUpdate() {
 
-     content=$(wget $githubReleaseLink -q -O -)
+     content=$(wget $githubReleaseAPILink -q -O -)
      #put the value of the last release in a variable
-     lastRelease=$(echo "$content" | tr ' ' '\n' | grep -n /pauljeandel/msalmScript/releases/tag/ | grep -oP '(?<=tag\/)[^"]*')
+     lastRelease=$(echo "$content" | tr ' ' '\n' | grep -n refs/tags/ | grep -oP '(?<=refs\/tags\/)[^"]*')
 
      if [ ${lastRelease:0:1} -gt ${version:0:1} ]; then
           echo ""
           echo "----------------------------MISE A JOUR MAJEURE DISPONIBLE-----------------------------"
-          echo "Live version : ${lastRelease:0:1}.X sur $githubReleaseLink"
-          echo "Current  : $version.X"
+          echo "Latest version : ${lastRelease:0:1}.X sur $githubReleaseLink"
+          echo "Current version : $version.X"
           echo "---------------------------------------------------------------------------------------"
           echo ""
           echo "> RUNING : bash msalm.sh update"
@@ -213,14 +221,11 @@ checkForUpdate() {
                echo "[ ERREUR ] Mise à jour impossible"
           else
                echo "[ INFO ] Mise à jour effectuée"
-               #il faut mettre la nouvelle version dans la config sinon ce sera jamais pris en compte
-
-
           fi
           exit 0
 
      else
-          echo "[INFO] Script a jour. GG ! "
+          echo "[INFO] Script a jour. Version $version"
      fi
 }
 
@@ -228,6 +233,7 @@ testDev() {
      echo ""
      echo "============================DEV TEST ==================================="
      echo ""
+
 
      echo ""
      echo "========================================================================"
@@ -239,7 +245,7 @@ helper() {
      echo "------------------------------------------------------------------------------------------------------------------------------"
      echo "Script configuré pour $projectName"
      echo "Usage : bash msalm.sh -[COMMAND] <ARGS> --[OPTION] "
-     echo "Git project : https://github.com/pauljeandel/msalmScript.git"
+     echo "Git project : $gitProjectLink"
      echo ""
      echo "  help, -h                                   Affiche ce message et quitte"
      echo "  scriptInstall, -si                         NE PAS UTILISER GENRE VRAIMENT PAS DU TOUT Installe ce script de manière définitive. Nécessite les privilèges Root ( Marche pas )"
@@ -249,7 +255,7 @@ helper() {
      echo "  version, -v                                Version"
      echo ""
      echo "  share, -s <PATH>                           Partage le dossier spécifié sur le réseau local. Port : $port"
-     echo "                                             Default :  $HOME$sharedFolder /msalmShared "
+     echo "                                             Default :  $HOME$sharedFolderDirectory/$sharedFolderName "
      echo "  openShareRemote, -osr <PERSON>                    Ouvre le lien de partage de fichier. PERSON = [ paulj , paulm , cedric , momo ]"
      echo ""
      echo "  ionicenv, -ie                              Lance l'environnement de dévellopement Ionic"
@@ -266,7 +272,7 @@ helper() {
 }
 
 source config_default.txt
-checkForUpdate
+checkForMajorUpdate
 until [ ! $1 ]; do
      case $1 in
      "-h" | "help") helper ;;

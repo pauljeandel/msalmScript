@@ -1,11 +1,14 @@
 version=0.1
 projectName=Msalm
-githubReleaseLink=https://github.com/pauljeandel/msalmScript/releases
+scriptRootFolder=msalmScript
+gitProjectLink=https://github.com/pauljeandel/msalmScript.git
+githubReleaseAPILink=https://api.github.com/repos/pauljeandel/msalmScript/git/refs/tags
 
 port=3200
 portDefaultIonicRemote=8100
 
-sharedFolder=/Bureau
+sharedFolderDirectory=/Bureau
+sharedFolderName=MsalmShared
 
 ipPaulj=192.168.1.1
 ipPaulm=192.168.1.2
