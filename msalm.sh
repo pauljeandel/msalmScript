@@ -207,7 +207,7 @@ checkForMajorUpdate() {
      #put the value of the last release in a variable
      lastRelease=$(echo "$content" | tr ' ' '\n' | grep -n refs/tags/ | grep -oP '(?<=refs\/tags\/)[^"]*')
 
-     if [ ${lastRelease:0:1} -gt ${version:0:1} ]; then
+     if [ ${lastRelease:0:1} ] && [ ${lastRelease:0:1} -gt ${version:0:1} ]; then
           echo ""
           echo "----------------------------MISE A JOUR MAJEURE DISPONIBLE-----------------------------"
           echo "Latest version : ${lastRelease:0:1}.X sur $gitProjectLink"
@@ -240,7 +240,7 @@ checkForMinorUpdate() {
      Releases=$(echo "$content" | tr ' ' '\n' | grep -n refs/tags/ | grep -oP '(?<=refs\/tags\/)[^"]*')
      #echo "Last release : $lastRelease"
      lastRelease="${Releases##*$'\n'}"
-     if [ ${lastRelease:2:3} -gt ${version:2:3} ]; then
+     if [ ${lastRelease:2:3} ] && [ ${lastRelease:2:3} -gt ${version:2:3} ]; then
           echo ""
           echo "----------------------------MISE A JOUR MINEURE DISPONIBLE-----------------------------"
           echo "Latest version : ${lastRelease:0:3} sur $gitProjectLink"
