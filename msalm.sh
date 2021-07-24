@@ -1,5 +1,4 @@
-
-update(){
+update() {
      cd $HOME/bin/msalmScript
      git pull
 }
@@ -144,7 +143,7 @@ openshare() {
      assArray1[momo]=$ipMomo
 
      str=$2
-     if [ $2 ] && [[ ! ${str:0:1} == "-" ]] && [[ ! ${str:0:1} == "--" ]] ; then
+     if [ $2 ] && [[ ! ${str:0:1} == "-" ]] && [[ ! ${str:0:1} == "--" ]]; then
 
           header="http://"
           dots=":"
@@ -194,68 +193,100 @@ scriptInstall() {
      fi
 }
 
+checkForUpdate() {
+
+     content=$(wget $githubReleaseLink -q -O -)
+     #put the value of the last release in a variable
+     lastRelease=$(echo "$content" | tr ' ' '\n' | grep -n /pauljeandel/msalmScript/releases/tag/ | grep -oP '(?<=tag\/)[^"]*')
+
+     if [ ${lastRelease:0:1} -gt ${version:0:1} ]; then
+          echo ""
+          echo "----------------------------MISE A JOUR MAJEURE DISPONIBLE-----------------------------"
+          echo "Live version : ${lastRelease:0:1}.X sur $githubReleaseLink"
+          echo "Current  : $version.X"
+          echo "---------------------------------------------------------------------------------------"
+          echo ""
+          echo "> RUNING : bash msalm.sh update"
+          sleep 3
+          update
+          if [ ! $? -eq 0 ]; then
+               echo "[ ERREUR ] Mise à jour impossible"
+          else
+               echo "[ INFO ] Mise à jour effectuée"
+          fi
+          exit 0
+
+     else
+          echo "[INFO] Script a jour. GG ! "
+     fi
+}
+
 testDev() {
      echo "WELCOME TO DEV FUNCTION !!"
+
 }
 
 helper() {
      echo "------------------------------------------------------------------------------------------------------------------------------"
      echo "Script configuré pour $projectName"
+     echo "Usage : bash msalm.sh -[COMMAND] <ARGS> --[OPTION] "
+     echo "Git project : https://github.com/pauljeandel/msalmScript.git"
      echo ""
-     echo "  -help, -h                                   Affiche ce message et quitte"
-     echo "  -scriptInstall, -si                         NE PAS UTILISER GENRE VRAIMENT PAS DU TOUT Installe ce script de manière définitive. Nécessite les privilèges Root ( Marche pas )"
-     echo "  --testDev, --dev                            Teste la fonctionnalité de développement"
-     echo "  -editScript, -es                            Edite le script sur VsCode"
-     echo "  -update                                     Mise à jour du projet git"
-     echo "  -version, -v                                Version"
+     echo "  help, -h                                   Affiche ce message et quitte"
+     echo "  scriptInstall, -si                         NE PAS UTILISER GENRE VRAIMENT PAS DU TOUT Installe ce script de manière définitive. Nécessite les privilèges Root ( Marche pas )"
+     echo "  --testDev, --dev                           Teste la fonctionnalité de développement"
+     echo "  editScript, -es                            Edite le script sur VsCode"
+     echo "  update                                     Mise à jour du projet git"
+     echo "  version, -v                                Version"
      echo ""
-     echo "  -share, -s <PATH>                           Partage le dossier spécifié sur le réseau local. Port : $port"
-     echo "                                              Default :  $HOME$sharedFolder /msalmShared "
-     echo "  -openShareRemote, -osr <PERSON>                    Ouvre le lien de partage de fichier. PERSON = [ paulj , paulm , cedric , momo ]"
+     echo "  share, -s <PATH>                           Partage le dossier spécifié sur le réseau local. Port : $port"
+     echo "                                             Default :  $HOME$sharedFolder /msalmShared "
+     echo "  openShareRemote, -osr <PERSON>                    Ouvre le lien de partage de fichier. PERSON = [ paulj , paulm , cedric , momo ]"
      echo ""
-     echo "  -ionicenv, -ie                              Lance l'environnement de dévellopement Ionic"
-     echo "  -ionicupdate, -iu [options]                 Met à jour le projet Ionic ( Git + Nodes modules )"
+     echo "  ionicenv, -ie                              Lance l'environnement de dévellopement Ionic"
+     echo "  ionicupdate, -iu [options]                 Met à jour le projet Ionic ( Git + Nodes modules )"
      echo "              --init <PATH> <GIT-URL>                   Inititialise le projet Ionic ( Git + Nodes modules + ionic )( TODO )"
      echo "              --open                                    Lance le serveur ionic"
-     echo "  -openIonicRemote, -oir <PERSON>             Ouvre le preview ionic à distance. PERSON = [ paulj , paulm , cedric , momo ]"
+     echo "  openIonicRemote, -oir <PERSON>             Ouvre le preview ionic à distance. PERSON = [ paulj , paulm , cedric , momo ]"
      echo ""
-     echo "  -sfenv, -sfe                                Lance l'environnement de dévellopement Symphony ( TODO )"
-     echo "  -sfupdate, -sfu [options]                   Met à jour le projet Symphony ( Git + Composer + Docktrin )"
+     echo "  sfenv, -sfe                                Lance l'environnement de dévellopement Symphony ( TODO )"
+     echo "  sfupdate, -sfu [options]                   Met à jour le projet Symphony ( Git + Composer + Docktrin )"
      echo "              --init <PATH> <GIT-URL>                   Initialise le projet Symphony ( TODO )"
      echo ""
      echo "------------------------------------------------------------------------------------------------------------------------------"
 }
 
 source config_default.txt
+checkForUpdate
 until [ ! $1 ]; do
      case $1 in
-     "-h" | "-help") helper ;;
-     "-version" | "-v") echo "Version : $version" ;;
-     "-update" ) update ;;
-     "-scriptInstall" | "-si") scriptInstall ;;
-     "-share" | "-s") share $@ ;;
-     "-openShareRemote" | "-osr")
+     "-h" | "help") helper ;;
+     "version" | "-v") echo "Version : $version" ;;
+     "update") update ;;
+     "scriptInstall" | "-si") scriptInstall ;;
+     "share" | "-s") share $@ ;;
+     "openShareRemote" | "-osr")
           openshare $@
           if [[ ! ${str:0:1} == "-" ]]; then
                shift
           fi
           ;;
-     "-sfEnv" | "-sfe") sfEnv ;;
-     "-sfUpdate" | "-sfu")
+     "sfEnv" | "-sfe") sfEnv ;;
+     "sfUpdate" | "-sfu")
           sfUpdate $@
           if [ $2 = "--init" ]; then
                shift
           fi
           ;;
 
-     "-ionicEnv" | "-ie") ionicEnv ;;
-     "-ionicUpdate" | "-iu")
+     "ionicEnv" | "-ie") ionicEnv ;;
+     "ionicUpdate" | "-iu")
           ionicUpdate $@
           if [ $2 = "--open" ] || [ $2 = "--init" ]; then
                shift
           fi
           ;;
-     "-openIonicRemote" | "-oir")
+     "openIonicRemote" | "-oir")
           openIonicRemote $@
           if [[ ! ${str:0:1} == "-" ]]; then
                shift
@@ -263,12 +294,12 @@ until [ ! $1 ]; do
           ;;
      "-ieu" | "-iue") exec bash "$0" "-iu" "-ie" ;;
      "-sfeu" | "-sfue") exec bash "$0" "-sfu" "-sfe" ;;
-     "-ionicEnv--flemme" | "-ief") ionicEnvWS ;;
-     "-editScript" | "-es") cd $HOME/bin && code . ;;
+     "ionicEnv--flemme" | "-ief") ionicEnvWS ;;
+     "editScript" | "-es") cd $HOME/bin && code . ;;
      "--testDev" | "--dev") testDev ;;
      "")
           echo "OPTION INVALIDE : $1"
-          echo "USAGE: bash msalm.sh [options]"
+          echo "Usage : bash msalm.sh -[COMMAND] <ARGS> --[OPTION] "
           helper
           exit 1
           ;;

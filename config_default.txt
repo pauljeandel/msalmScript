@@ -1,5 +1,6 @@
-version=0.2
+version=1
 projectName=Msalm
+githubReleaseLink=https://github.com/pauljeandel/msalmScript/releases
 
 port=3200
 portDefaultIonicRemote=8100
