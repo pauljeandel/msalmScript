@@ -1,6 +1,6 @@
 version=0.2
 projectName=Mon-Sport-A-La-Maison
-scriptRootFolder=msalmScript
+scriptRootFolder=argScript
 gitProjectLink=https://github.com/pauljeandel/msalmScript.git
 githubReleaseAPILink=https://api.github.com/repos/pauljeandel/msalmScript/git/refs/tags
 

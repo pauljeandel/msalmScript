@@ -177,7 +177,7 @@ openIonicRemote() {
 }
 
 scriptInstall() {
-     if [ $EUID -ne 0 ]; then
+     if [ ! $EUID -ne 0 ]; then
           echo "Vous devez avoir les privilèges root pour installer ce script"
           [ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
      else
@@ -186,7 +186,6 @@ scriptInstall() {
                mkdir -m 777 $scriptRootFolder
                cd $scriptRootFolder
                git clone $gitProjectLink
-               sudo apt install jq
                if [ ! $? -eq 0 ]; then
                     echo "[ ERREUR ] Récupération depuis git impossible. Abandon"
                     exit 0
@@ -313,7 +312,7 @@ until [ ! $1 ]; do
      "-h" | "help") helper ;;
      "version" | "-v") echo "Version : $version" ;;
      "update") update ;;
-     "scriptInstall" | "-si") scriptInstall ;;
+     #"scriptInstall" | "-si") scriptInstall ;;
      "share" | "-s") share $@ ;;
      "openShareRemote" | "-osr")
           openshare $@
