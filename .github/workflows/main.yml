@@ -33,3 +33,5 @@ jobs:
         # You may pin to the exact commit or the version.
         # uses: reviewdog/action-shellcheck@2d9719b7d73354ef50438c65504d40769337a0cc
         uses: reviewdog/action-shellcheck@v1.6.0
+        with:
+          reporter: github-pr-review
