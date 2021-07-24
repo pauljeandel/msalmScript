@@ -298,6 +298,7 @@ helper() {
      echo "  scriptInstall, -si                         NE PAS UTILISER GENRE VRAIMENT PAS DU TOUT Installe ce script de manière définitive. Nécessite les privilèges Root ( Marche pas )"
      echo "  --testDev, --dev                           Teste la fonctionnalité de développement"
      echo "  editScript, -es                            Edite le script sur VsCode"
+     echo "  editConfig, -ec                            Edite le fichier de config personnel avec nano"
      echo "  update                                     Mise à jour du projet git"
      echo "  version, -v                                Version"
      echo ""
@@ -342,7 +343,7 @@ until [ ! "$1" ]; do
      "sfEnv" | "-sfe") sfEnv ;;
      "sfUpdate" | "-sfu")
           sfUpdate $@
-          if [ $2 = "--init" ]; then
+          if [ "$2" = "--init" ]; then
                shift
           fi
           ;;
@@ -364,6 +365,7 @@ until [ ! "$1" ]; do
      "-sfeu" | "-sfue") exec bash "$0" "-sfu" "-sfe" ;;
      "ionicEnv--flemme" | "-ief") ionicEnvWS ;;
      "editScript" | "-es") cd "$HOME"/bin && code . ;;
+     "editConfig" | "-ec") sudo nano "$HOME"/bin/"$scriptRootFolder"/config_perso.txt ;;
      "--testDev" | "--dev") testDev ;;
      "")
           echo "OPTION INVALIDE : $1"
