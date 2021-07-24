@@ -186,6 +186,7 @@ scriptInstall() {
                mkdir -m 777 $scriptRootFolder
                cd $scriptRootFolder
                git clone $gitProjectLink
+               sudo apt install jq
                if [ ! $? -eq 0 ]; then
                     echo "[ ERREUR ] Récupération depuis git impossible. Abandon"
                     exit 0
@@ -228,7 +229,7 @@ checkForMajorUpdate() {
           exit 0
 
      else
-          echo "[INFO] Script a jour. Version $version"
+          checkForMinorUpdate
 
      fi
 }
@@ -251,7 +252,12 @@ checkForMinorUpdate() {
           sleep 2
 
      else
-          echo "[INFO] Script a jour. Version $version"
+          if [ ! $? -eq 0 ]; then
+               echo "[ ERREUR ] GitHub API Down or API Limit exceeded - Will retry later"
+               echo "[INFO] Actual Version : $version"
+          else
+               echo "[INFO] Script a jour. Version $version"
+          fi
      fi
 }
 
@@ -259,6 +265,9 @@ testDev() {
      echo ""
      echo "============================DEV TEST ==================================="
      echo ""
+
+
+
 
 
      echo ""
@@ -271,7 +280,6 @@ helper() {
      echo "------------------------------------------------------------------------------------------------------------------------------"
      echo "Script configuré pour $projectName"
      echo "Usage : bash msalm.sh -[COMMAND] <ARGS> --[OPTION] "
-     echo "Git project : $gitProjectLink"
      echo ""
      echo "  help, -h                                   Affiche ce message et quitte"
      echo "  scriptInstall, -si                         NE PAS UTILISER GENRE VRAIMENT PAS DU TOUT Installe ce script de manière définitive. Nécessite les privilèges Root ( Marche pas )"
@@ -294,12 +302,12 @@ helper() {
      echo "  sfupdate, -sfu [options]                   Met à jour le projet Symphony ( Git + Composer + Docktrin )"
      echo "              --init <PATH> <GIT-URL>                   Initialise le projet Symphony ( TODO )"
      echo ""
+     echo "Git project : $gitProjectLink"
      echo "------------------------------------------------------------------------------------------------------------------------------"
 }
 
 source config_default.txt
 checkForMajorUpdate
-checkForMinorUpdate
 until [ ! $1 ]; do
      case $1 in
      "-h" | "help") helper ;;
@@ -353,3 +361,6 @@ until [ ! $1 ]; do
      esac
      shift
 done
+
+
+
