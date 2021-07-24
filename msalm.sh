@@ -210,7 +210,7 @@ checkForMajorUpdate() {
      if [ ${lastRelease:0:1} -gt ${version:0:1} ]; then
           echo ""
           echo "----------------------------MISE A JOUR MAJEURE DISPONIBLE-----------------------------"
-          echo "Latest version : ${lastRelease:0:1}.X sur $githubReleaseLink"
+          echo "Latest version : ${lastRelease:0:1}.X sur $gitProjectLink"
           echo "Current version : $version.X"
           echo "---------------------------------------------------------------------------------------"
           echo ""
@@ -222,7 +222,33 @@ checkForMajorUpdate() {
           else
                echo "[ INFO ] Mise à jour effectuée"
           fi
+          echo "[ INFO ] Will Re-run last command"
+          sleep 2
+
           exit 0
+
+     else
+          echo "[INFO] Script a jour. Version $version"
+
+     fi
+}
+
+checkForMinorUpdate() {
+
+     content=$(wget $githubReleaseAPILink -q -O -)
+     #put the value of the last release in a variable
+     Releases=$(echo "$content" | tr ' ' '\n' | grep -n refs/tags/ | grep -oP '(?<=refs\/tags\/)[^"]*')
+     #echo "Last release : $lastRelease"
+     lastRelease="${Releases##*$'\n'}"
+     if [ ${lastRelease:2:3} -gt ${version:2:3} ]; then
+          echo ""
+          echo "----------------------------MISE A JOUR MINEURE DISPONIBLE-----------------------------"
+          echo "Latest version : ${lastRelease:0:3} sur $gitProjectLink"
+          echo "Current version : $version"
+          echo "---------------------------------------------------------------------------------------"
+          echo ""
+          echo "> PLEASE RUN : bash msalm.sh update"
+          sleep 2
 
      else
           echo "[INFO] Script a jour. Version $version"
@@ -273,6 +299,7 @@ helper() {
 
 source config_default.txt
 checkForMajorUpdate
+checkForMinorUpdate
 until [ ! $1 ]; do
      case $1 in
      "-h" | "help") helper ;;
