@@ -213,6 +213,9 @@ checkForUpdate() {
                echo "[ ERREUR ] Mise à jour impossible"
           else
                echo "[ INFO ] Mise à jour effectuée"
+               #il faut mettre la nouvelle version dans la config sinon ce sera jamais pris en compte
+
+
           fi
           exit 0
 
@@ -222,7 +225,13 @@ checkForUpdate() {
 }
 
 testDev() {
-     echo "WELCOME TO DEV FUNCTION !!"
+     echo ""
+     echo "============================DEV TEST ==================================="
+     echo ""
+
+     echo ""
+     echo "========================================================================"
+     echo ""
 
 }
 
