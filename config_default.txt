@@ -1,4 +1,4 @@
-version=0.1
+version=0.2
 projectName=Msalm
 scriptRootFolder=msalmScript
 gitProjectLink=https://github.com/pauljeandel/msalmScript.git
