@@ -342,7 +342,7 @@ until [ ! "$1" ]; do
      "sfEnv" | "-sfe") sfEnv ;;
      "sfUpdate" | "-sfu")
           sfUpdate $@
-          if [ $2 = "--init" ]; then
+          if [ "$2" = "--init" ]; then
                shift
           fi
           ;;
