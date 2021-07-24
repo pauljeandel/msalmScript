@@ -59,7 +59,7 @@ ionicUpdate() {
      else
           echo "[ INFO ] Mise à jour des modules npm effectuée"
      fi
-     if [ $2 = "--open" ]; then
+     if [ $2 ] && [ $2 = "--open" ]; then
           xterm -e "bash -c \"cd $HOME$ionicAppFolder && ionic serve --external  ; exec bash\"" &
           if [ ! $? -eq 0 ]; then
                echo "[ ERREUR ] Ionic serve Failed "
@@ -331,7 +331,7 @@ until [ ! $1 ]; do
      "ionicEnv" | "-ie") ionicEnv ;;
      "ionicUpdate" | "-iu")
           ionicUpdate $@
-          if [ $2 = "--open" ] || [ $2 = "--init" ]; then
+          if [ $2 ] &&  [ $2 = "--open" ] || [ $2 = "--init" ]; then
                shift
           fi
           ;;
