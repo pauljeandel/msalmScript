@@ -1,6 +1,14 @@
 update() {
      cd $HOME/bin/$scriptRootFolder
      git pull
+     if [ ! $? -eq 0 ]; then
+               echo "[ ERREUR ] Mise à jour impossible"
+     else
+               echo ""
+               echo "[ INFO ] Le script est à jour. Version : $version"
+               echo "[ INFO ] Release note : https://github.com/$gitAccount/$projectName/releases/tag/$version"
+               helper
+     fi
 }
 
 ionicEnv() {
@@ -217,11 +225,6 @@ checkForMajorUpdate() {
           echo "> RUNING : bash msalm.sh update"
           sleep 3
           update
-          if [ ! $? -eq 0 ]; then
-               echo "[ ERREUR ] Mise à jour impossible"
-          else
-               echo "[ INFO ] Mise à jour effectuée"
-          fi
           echo "[ INFO ] Will Re-run last command"
           sleep 2
 
@@ -253,9 +256,9 @@ checkForMinorUpdate() {
      else
           if [ ! $? -eq 0 ]; then
                echo "[ ERREUR ] GitHub API Down or API Limit exceeded - Will retry later"
-               echo "[INFO] Actual Version : $version"
+               echo "[ INFO ] Actual Version : $version"
           else
-               echo "[INFO] Script a jour. Version $version"
+               echo "[INFO] Script a jour. Version : $version"
           fi
      fi
 }
