@@ -1,3 +1,9 @@
+
+update(){
+     cd $HOME/bin/msalmScript
+     git pull
+}
+
 ionicEnv() {
      cd $HOME$ionicAppFolder
      code . #Sorry cédric
@@ -138,7 +144,7 @@ openshare() {
      assArray1[momo]=$ipMomo
 
      str=$2
-     if [[ ! ${str:0:1} == "-" ]] && [[ ! ${str:0:1} == "--" ]] && [ $2 ]; then
+     if [ $2 ] && [[ ! ${str:0:1} == "-" ]] && [[ ! ${str:0:1} == "--" ]] ; then
 
           header="http://"
           dots=":"
@@ -199,7 +205,9 @@ helper() {
      echo "  -help, -h                                   Affiche ce message et quitte"
      echo "  -scriptInstall, -si                         NE PAS UTILISER GENRE VRAIMENT PAS DU TOUT Installe ce script de manière définitive. Nécessite les privilèges Root ( Marche pas )"
      echo "  --testDev, --dev                            Teste la fonctionnalité de développement"
-     echo "  -editScript, -es                            Edite le script"
+     echo "  -editScript, -es                            Edite le script sur VsCode"
+     echo "  -update                                     Mise à jour du projet git"
+     echo "  -version, -v                                Version"
      echo ""
      echo "  -share, -s <PATH>                           Partage le dossier spécifié sur le réseau local. Port : $port"
      echo "                                              Default :  $HOME$sharedFolder /msalmShared "
@@ -222,6 +230,8 @@ source config_default.txt
 until [ ! $1 ]; do
      case $1 in
      "-h" | "-help") helper ;;
+     "-version" | "-v") echo "Version : $version" ;;
+     "-update" ) update ;;
      "-scriptInstall" | "-si") scriptInstall ;;
      "-share" | "-s") share $@ ;;
      "-openShareRemote" | "-osr")
@@ -231,12 +241,17 @@ until [ ! $1 ]; do
           fi
           ;;
      "-sfEnv" | "-sfe") sfEnv ;;
-     "-sfUpdate" | "-sfu") sfUpdate ;;
-     "-sfUpdate--init" | "-sfu--init") echo "sfu init" ;;
+     "-sfUpdate" | "-sfu")
+          sfUpdate $@
+          if [ $2 = "--init" ]; then
+               shift
+          fi
+          ;;
+
      "-ionicEnv" | "-ie") ionicEnv ;;
      "-ionicUpdate" | "-iu")
           ionicUpdate $@
-          if [ $2 = "--open" ]; then
+          if [ $2 = "--open" ] || [ $2 = "--init" ]; then
                shift
           fi
           ;;
@@ -246,7 +261,6 @@ until [ ! $1 ]; do
                shift
           fi
           ;;
-     "-ionicUpdate--init" | "-iu--init") echo "iu init" ;;
      "-ieu" | "-iue") exec bash "$0" "-iu" "-ie" ;;
      "-sfeu" | "-sfue") exec bash "$0" "-sfu" "-sfe" ;;
      "-ionicEnv--flemme" | "-ief") ionicEnvWS ;;

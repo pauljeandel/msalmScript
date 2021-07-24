@@ -1,3 +1,4 @@
+version=0.2
 projectName=Msalm
 
 port=3200
