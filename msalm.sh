@@ -18,7 +18,7 @@ ionicEnv() {
 
 ionicEnvWS() {
      wmctrl -d
-     if [ $? ]; then
+     if [ ! $? ]; then
           echo "[ INFO ] Installation de wmctrl ( Workspace controler ) : "
           sudo apt install wmctrl
      fi
