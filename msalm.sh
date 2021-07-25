@@ -306,12 +306,12 @@ helper() {
      echo ""
      echo "  ionicenv, -ie                              Lance l'environnement de dévellopement Ionic"
      echo "  ionicupdate, -iu [options]                 Met à jour le projet Ionic ( Git + Nodes modules )"
-     echo "              --init                                    Inititialise le projet Ionic ( Git + Nodes modules + ionic )" #TODO : ionic
+     echo "              --init                                    Inititialise le projet Ionic ( Git + Nodes modules + ionic )"
      echo "              --open                                    Lance le serveur ionic"
      echo ""
      echo "  sfenv, -sfe                                Lance l'environnement de dévellopement Symphony ( TODO )" #TODO : sf
      echo "  sfupdate, -sfu [options]                   Met à jour le projet Symphony ( Git + Composer + Docktrin )"
-     echo "              --init                                    Initialise le projet Symphony ( TODO )" #TODO : sf
+     echo "              --init                                    Initialise le projet Symphony ( TODO )"
      echo ""
      echo "[ INFO ] Git project : $gitProjectLink"
      echo "[ INFO ] Release note : https://github.com/$gitAccount/$repoName/releases/tag/$version"
