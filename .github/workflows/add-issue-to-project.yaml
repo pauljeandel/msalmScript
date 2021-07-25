@@ -1,3 +1,4 @@
+name: Bot - Add issue to TODO
 on:
   issues:
     types: [opened]
