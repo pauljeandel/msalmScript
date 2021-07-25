@@ -1,10 +1,21 @@
 # Script Mon sport a la maison
+
+## Install
+#### Clone the repo in $HOME/bin :
+```
+cd $HOME/bin && git clone https://github.com/pauljeandel/msalmScript.git
+```
+#### Add $HOME/bin/msalmScript to your PATH :
+```
+export PATH=$PATH:$HOME/bin/msalmScript
+```
 ## Usage
 #### Basic Usage :
 - `:~$ bash msalm.sh [COMMAND] <ARGS> --[OPTION]`
 #### Exemples :
 - `:~$ bash msalm.sh -iu --open` / `bash msalm.sh ionicupdate --open`
 - `:~$ bash msalm.sh -iu -ie`
+- 
 #### Basics commands :
 - `help, -v` :             Affiche les commandes
 - `update` :               Met à jour le script
@@ -12,6 +23,7 @@
 - `editConig, -ec` :       Edite le fichier de config personnel
 - `version, -v` :          Affiche la version
 - `--testdev, --dev` :     Lance la fonction dev
+
 #### Config options :
 - `autoUpdate` : Maj Majeures auto et notifications de Maj Mineures
 - `port` : Port utilisé pour le partage de fichiers
