@@ -1,9 +1,0 @@
-auto-udate=true
-port=3200
-portDefaultIonicRemote=8100
-
-sharedFolderDirectory=/Project
-sharedFolderName=Shared
-
-ionicAppFolder=/web/www/Project/IonicProject
-symphonyAppFolder=/web/www/project/SymphonyProject 
