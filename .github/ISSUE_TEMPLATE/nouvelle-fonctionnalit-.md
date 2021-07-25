@@ -7,7 +7,7 @@ assignees: pauljeandel
 
 ---
 
-**Décrire votre nouvelle fonctionnalité**
+**Description**
 ```
 Décrire ici
 ```
