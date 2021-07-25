@@ -8,7 +8,9 @@ assignees: pauljeandel
 ---
 
 **Description**
+```
 Décrire le bug ici
+```
 
 **Pour reproduire**
 ```
