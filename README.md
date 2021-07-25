@@ -83,6 +83,7 @@ Le fichier config_perso est obligatoire
 ### Share ( Bloque l'execution du script et du terminal )
 - `:~$ bash msalm.sh -s` / `bash msalm.sh share` : Partage le dossier par default sur le réseau local et le port configuré.</br>
 - `:~$ bash msalm.sh -s <PATH>` / `bash msalm.sh share <PATH>` : Partage le dossier spécifié sur le réseau local et le port configuré.
+</br></br>***Attention :*** Le port configuré doit etre superieur à 1200 ( Je sais pas vraiment pourquoi en vrai mais sinon ça marche pas )
 ### Open Share Remote
 - `:~$ bash msalm.sh -osr <PERSON>` / `bash msalm.sh openShareRemote <PERSON>` : Ouvre l'acces au partage de la personne cible via le réseau.
 #### Option : 
