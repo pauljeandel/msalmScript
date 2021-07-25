@@ -339,6 +339,7 @@ if [ -f "config_perso.txt" ]; then
           echo "[ INFO ] Mise à jour auto désactivées"
      fi
 else
+
      RED='\033[0;31m'
      NC='\033[0m' # No Color
      printf "${RED}[ ERREUR ] No personnal config file - Script Wont Work${NC}\n"
@@ -349,59 +350,59 @@ fi
 
 until [ ! "$1" ]; do
      case $1 in
-          "-h" | "help") helper ;;
-          "version" | "-v") echo "Version : $version" ;;
-          "update" | "-u") update ;;
-               #"scriptInstall" | "-si") scriptInstall ;;
-          "share" | "-s") share $@ ;;
-          "openShareRemote" | "-osr")
-               openshare $@
-               if [[ ! ${str:0:1} == "-" ]]; then
-                    shift
-               fi
-               if [[ $2 == "--linkFile" ]] && [[ ! ${str2:0:1} == "-" ]]; then
-                    shift
-                    shift
-               fi
-               ;;
-          "sfEnv" | "-sfe") sfEnv ;;
-          "sfUpdate" | "-sfu")
-               sfUpdate $@
-               if [ "$2" = "--init" ]; then
-                    shift
-               fi
-               ;;
+     "-h" | "help") helper ;;
+     "version" | "-v") echo "Version : $version" ;;
+     "update" | "-u") update ;;
+          #"scriptInstall" | "-si") scriptInstall ;;
+     "share" | "-s") share $@ ;;
+     "openShareRemote" | "-osr")
+          openshare $@
+          if [[ ! ${str:0:1} == "-" ]]; then
+               shift
+          fi
+          if [[ $2 == "--linkFile" ]] && [[ ! ${str2:0:1} == "-" ]]; then
+               shift
+               shift
+          fi
+          ;;
+     "sfEnv" | "-sfe") sfEnv ;;
+     "sfUpdate" | "-sfu")
+          sfUpdate $@
+          if [ "$2" = "--init" ]; then
+               shift
+          fi
+          ;;
 
-          "ionicEnv" | "-ie") ionicEnv ;;
-          "ionicUpdate" | "-iu")
-               ionicUpdate $@
-               if [ "$2" ] && [ "$2" = "--open" ] || [ "$2" = "--init" ]; then
-                    shift
-               fi
-               ;;
-          "openIonicRemote" | "-oir")
-               openIonicRemote $@
-               if [[ ! ${str:0:1} == "-" ]]; then
-                    shift
-               fi
-               ;;
-          "-ieu" | "-iue") exec bash "$0" "-iu" "-ie" ;;
-          "-sfeu" | "-sfue") exec bash "$0" "-sfu" "-sfe" ;;
-          "ionicEnv--flemme" | "-ief") ionicEnvWS ;;
-          "editScript" | "-es") cd "$HOME"/bin && code . ;;
-          "editConfig" | "-ec") sudo nano "$HOME"/bin/"$scriptRootFolder"/config_perso.txt ;;
-          "--testDev" | "--dev") testDev ;;
-          "")
-               echo "OPTION INVALIDE : $1"
-               echo "Usage : bash msalm.sh -[COMMAND] <ARGS> --[OPTION] "
-               helper
-               exit 1
-               ;;
-          *)
-               echo "[ ERREUR ] Argument invalide : $1"
-               helper
-               exit 1
-               ;;
+     "ionicEnv" | "-ie") ionicEnv ;;
+     "ionicUpdate" | "-iu")
+          ionicUpdate $@
+          if [ "$2" ] && [ "$2" = "--open" ] || [ "$2" = "--init" ]; then
+               shift
+          fi
+          ;;
+     "openIonicRemote" | "-oir")
+          openIonicRemote $@
+          if [[ ! ${str:0:1} == "-" ]]; then
+               shift
+          fi
+          ;;
+     "-ieu" | "-iue") exec bash "$0" "-iu" "-ie" ;;
+     "-sfeu" | "-sfue") exec bash "$0" "-sfu" "-sfe" ;;
+     "ionicEnv--flemme" | "-ief") ionicEnvWS ;;
+     "editScript" | "-es") cd "$HOME"/bin && code . ;;
+     "editConfig" | "-ec") sudo nano "$HOME"/bin/"$scriptRootFolder"/config_perso.txt ;;
+     "--testDev" | "--dev") testDev ;;
+     "")
+          echo "OPTION INVALIDE : $1"
+          echo "Usage : bash msalm.sh -[COMMAND] <ARGS> --[OPTION] "
+          helper
+          exit 1
+          ;;
+     *)
+          echo "[ ERREUR ] Argument invalide : $1"
+          helper
+          exit 1
+          ;;
      esac
      shift
 done
