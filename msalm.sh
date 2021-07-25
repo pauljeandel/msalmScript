@@ -329,7 +329,7 @@ else
      RED='\033[0;31m'
      NC='\033[0m' # No Color
      printf "${RED}[ ERREUR ] No personnal config file - Script Wont Work${NC}\n"
-     printf "${RED}Reduce to : -h --dev Only${NC}\n"
+     exit 0
 fi
 
 until [ ! "$1" ]; do
