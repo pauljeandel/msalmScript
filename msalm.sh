@@ -313,7 +313,7 @@ helper() {
 
 
 
-if [ ! -f "config_default.txt" ] && [ ! -f "config_default.txt" ]; then
+if [ -f "config_default.txt" ] && [ -f "config_perso.txt" ]; then
      source config_default.txt
      source config_perso.txt
 else
