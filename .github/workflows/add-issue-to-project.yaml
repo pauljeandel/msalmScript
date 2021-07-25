@@ -1,0 +1,13 @@
+name: Bot - Add issue to TODO
+on:
+  issues:
+    types: [opened]
+jobs:
+  addIssueToProject:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create or Update Project Card
+        uses: peter-evans/create-or-update-project-card@v1
+        with:
+          project-name: Mon Sport A La Maison
+          column-name: TODO

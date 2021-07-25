@@ -1,14 +1,28 @@
 # Script Mon sport a la maison
 
 ## Install
+Works on : `Linux Shell`
 #### Clone the repo in $HOME/bin :
 ```
 cd $HOME/bin && git clone https://github.com/pauljeandel/msalmScript.git
+```
+[Options et exemples plus bas](#config)
+#### Create a config_perso.txt file :
+```
+cd $HOME/bin/msalmScript && touch config_perso.txt
 ```
 #### Add $HOME/bin/msalmScript to your PATH :
 ```
 export PATH=$PATH:$HOME/bin/msalmScript
 ```
+Aide : <a href=https://doc.ubuntu-fr.org/tutoriel/script_shell>Doc Ubuntu</a>
+## Contribuer :
+ Via ***issue github***. Trois options :
+ - `Rapport de bug`
+ - `Nouvelle fonctionnalité`
+ - `Amélioration`
+</br></br>***Creer une branche du même nom que l'issue puis une Pull Request liée à l'issue.***</br></br>
+<a href=https://github.com/pauljeandel/msalmScript/contribute>***Good first issues***</a>
 ## Usage
 #### Basic Usage :
 - `:~$ bash msalm.sh [COMMAND] <ARGS> --[OPTION]`
@@ -23,26 +37,27 @@ export PATH=$PATH:$HOME/bin/msalmScript
 - `editConig, -ec` :       Edite le fichier de config personnel
 - `version, -v` :          Affiche la version
 - `--testdev, --dev` :     Lance la fonction dev
-
+<a name="config"></a>
 #### Config options :
 - `autoUpdate` : Maj Majeures auto et notifications de Maj Mineures
 - `port` : Port utilisé pour le partage de fichiers
 - `portDefaultIonicRemote` :              Port ionic
-- `sharedFolderDirectory` :      Emplacement du dossier partagé par default
+- `sharedFolderDirectory` :      Emplacement du dossier partagé par default $HOME/bin<PATH>
 - `sharedFolderName` :       Nom du dosier partagé
 - `ionicAppFolder` :          Chemin du projet ionic
 - `symphonyAppFolder` :     Chemin du projet Symphony
 ##### Exemple `config_perso.txt`:
+
 ```
-auto-udate=true
+auto-update=true
 port=3200
 portDefaultIonicRemote=8100
 
-sharedFolderDirectory=/Project
+sharedFolderDirectory=/Bureau
 sharedFolderName=Shared
 
-ionicAppFolder=/web/www/Project/IonicProject
-symphonyAppFolder=/web/www/project/SymphonyProject 
+ionicAppFolder=/web/www/mon-sport-maison/appli-msalm
+symphonyAppFolder=/web/www/mon-sport-maison/mon-sport-maison-sf 
 ```
 Le fichier config_perso est obligatoire
 # Commands :
@@ -76,6 +91,7 @@ Le fichier config_perso est obligatoire
 ### Share ( Bloque l'execution du script et du terminal )
 - `:~$ bash msalm.sh -s` / `bash msalm.sh share` : Partage le dossier par default sur le réseau local et le port configuré.</br>
 - `:~$ bash msalm.sh -s <PATH>` / `bash msalm.sh share <PATH>` : Partage le dossier spécifié sur le réseau local et le port configuré.
+</br></br>***Attention :*** Le port configuré doit etre superieur à 1200 ( Je sais pas vraiment pourquoi en vrai mais sinon ça marche pas )
 ### Open Share Remote
 - `:~$ bash msalm.sh -osr <PERSON>` / `bash msalm.sh openShareRemote <PERSON>` : Ouvre l'acces au partage de la personne cible via le réseau.
 #### Option : 
@@ -87,3 +103,5 @@ Le fichier config_perso est obligatoire
 ```
 ### Open Ionic Remote
 - `:~$ bash msalm.sh -oir <PERSON>` / `bash msalm.sh openIonicRemote <PERSON>` : Ouvre le preview ionic de la personne cible via le réseau.
+
+
