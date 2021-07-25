@@ -29,10 +29,10 @@ Aide : <a href=https://doc.ubuntu-fr.org/tutoriel/script_shell>Doc Ubuntu</a>
 #### Exemples :
 - `:~$ bash msalm.sh -iu --open` / `bash msalm.sh ionicupdate --open`
 - `:~$ bash msalm.sh -iu -ie`
-- 
+-
 #### Basics commands :
 - `help, -v` :             Affiche les commandes
-- `update` :               Met à jour le script
+- `update, -u` :               Met à jour le script
 - `editScript, -es` :      Edite le script
 - `editConig, -ec` :       Edite le fichier de config personnel
 - `version, -v` :          Affiche la version
@@ -49,15 +49,17 @@ Aide : <a href=https://doc.ubuntu-fr.org/tutoriel/script_shell>Doc Ubuntu</a>
 ##### Exemple `config_perso.txt`:
 
 ```
-auto-update=true
+autoupdate=true
 port=3200
 portDefaultIonicRemote=8100
 
-sharedFolderDirectory=/Bureau
+sharedFolderDirectory=/Project
 sharedFolderName=Shared
 
+gitRepoIonic=http://ionic-repo-project-ionic
 ionicAppFolder=/web/www/mon-sport-maison/appli-msalm
-symphonyAppFolder=/web/www/mon-sport-maison/mon-sport-maison-sf 
+symphonyAppFolder=/web/www/mon-sport-maison/mon-sport-maison-sf
+
 ```
 Le fichier config_perso est obligatoire
 # Commands :
@@ -70,9 +72,9 @@ Le fichier config_perso est obligatoire
 ### Ionic Update project
 
 - `:~$ bash msalm.sh -iu` / `bash msalm.sh ioniupdate` : Lance l'environnement de dévellopement Ionic
-#### Options : 
+#### Options :
 - `--open` : Lance le serveur ionic
-- `--init` : Inititialise le projet Ionic ( Git + Nodes modules + ionic )
+- `--init` : Inititialise le projet Ionic ( Git + Nodes modules + ionic ) dans ionicAppFolder
 
 ## Symphony
 
@@ -83,8 +85,8 @@ Le fichier config_perso est obligatoire
 ### Symphony update project
 
 - `:~$ bash msalm.sh -sfu` / `bash msalm.sh sfupdate` : Met à jour le projet Symphony ( Git + Composer + Docktrin )
-#### Option : 
-- `--init` :  Initialise le projet Symphony ( Git + Composer + Docktrin )
+#### Option :
+- `--init` :  Initialise le projet Symphony ( Git + Composer + Docktrin ) dans symphonyAppFolder
 
 ## Share Service
 
@@ -94,7 +96,7 @@ Le fichier config_perso est obligatoire
 </br></br>***Attention :*** Le port configuré doit etre superieur à 1200 ( Je sais pas vraiment pourquoi en vrai mais sinon ça marche pas )
 ### Open Share Remote
 - `:~$ bash msalm.sh -osr <PERSON>` / `bash msalm.sh openShareRemote <PERSON>` : Ouvre l'acces au partage de la personne cible via le réseau.
-#### Option : 
+#### Option :
 - `--linkFile <PATH>` :  Affiche le lien de téléchargement direct ShareService du fichier cible dans la console
 ```
 :~$ bash msalm.sh -osr paulj --linkFile Project/ionic/test.png

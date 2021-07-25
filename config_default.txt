@@ -2,7 +2,6 @@ version=1.1
 projectName="Mon Sport à la Maison"
 gitAccount=pauljeandel
 repoName=msalmScript
-scriptRootFolder=msalmScript
 gitProjectLink=https://github.com/pauljeandel/msalmScript.git
 githubReleaseLink=https://github.com/pauljeandel/msalmScript/releases
 
