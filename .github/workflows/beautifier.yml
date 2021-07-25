@@ -21,7 +21,7 @@ jobs:
         uses: illvart/beautysh-action@latest
         with:
           # Pass beautysh options in args, for example:
-          args: '*.sh --indent-size 4'
+          args: '*msalm.sh --indent-size 4 --force-function-style paronly'
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
