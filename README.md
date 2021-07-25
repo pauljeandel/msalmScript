@@ -15,7 +15,7 @@ export PATH=$PATH:$HOME/bin/msalmScript
  - `Rapport de bug`
  - `Nouvelle fonctionnalité`
  - `Amélioration`
-</br></br>***Creer une branche puis une Pull Request liée à l'issue.***
+</br></br>***Creer une branche du même nom que l'issue puis une Pull Request liée à l'issue.***
 ## Usage
 #### Basic Usage :
 - `:~$ bash msalm.sh [COMMAND] <ARGS> --[OPTION]`
