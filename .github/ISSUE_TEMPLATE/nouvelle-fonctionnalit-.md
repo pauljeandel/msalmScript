@@ -1,7 +1,7 @@
 ---
 name: Nouvelle fonctionnalité
 about: J'ai une idée !
-title: "[ IMPROVE - ]"
+title: "[ IMPROVE ] -"
 labels: enhancement
 assignees: pauljeandel
 
