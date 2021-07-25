@@ -15,6 +15,7 @@ cd $HOME/bin/msalmScript && touch config_perso.txt
 ```
 export PATH=$PATH:$HOME/bin/msalmScript
 ```
+Pour rendre la modification permanente, ajouter la commande dans le fichier texte caché .bashrc se trouvant dans votre dossier personnel ainsi que dans le dossier /root.
 Aide : <a href=https://doc.ubuntu-fr.org/tutoriel/script_shell>Doc Ubuntu</a>
 ## Contribuer :
  Via ***issue github***. Trois options :
