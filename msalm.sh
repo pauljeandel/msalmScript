@@ -311,21 +311,27 @@ helper() {
      echo "------------------------------------------------------------------------------------------------------------------------------"
 }
 
-
-
-if [ -f "config_default.txt" ] && [ -f "config_perso.txt" ]; then
+if [ -f "config_default.txt" ]; then
      source config_default.txt
-     source config_perso.txt
 else
      echo "[ ERREUR ] No config file"
      exit 1
 fi
-if [ $autoUpdate = "true" ]; then
-     checkForMajorUpdate
-     echo ""
+if [ -f "config_perso.txt" ]; then
+     source config_perso.txt
+     if [ $autoupdate = "true" ]; then
+          checkForMajorUpdate
+          echo ""
+     else
+          echo "[ INFO ] Mise à jour auto désactivées"
+     fi
 else
-     echo "[ INFO ] Mise à jour auto désactivées"
+     RED='\033[0;31m'
+     NC='\033[0m' # No Color
+     printf "${RED}[ ERREUR ] No personnal config file - Script Wont Work${NC}\n"
+     printf "${RED}Reduce to : -h --dev Only${NC}\n"
 fi
+
 until [ ! "$1" ]; do
      case $1 in
      "-h" | "help") helper ;;
