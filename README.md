@@ -1,6 +1,7 @@
 # Script Mon sport a la maison
 
 ## Install
+Works on : `Linux Shell`
 #### Clone the repo in $HOME/bin :
 ```
 cd $HOME/bin && git clone https://github.com/pauljeandel/msalmScript.git
