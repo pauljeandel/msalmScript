@@ -6,6 +6,11 @@ Works on : `Linux Shell`
 ```
 cd $HOME/bin && git clone https://github.com/pauljeandel/msalmScript.git
 ```
+[Options et exemples plus bas](#config)
+#### Create a config_perso.txt file :
+```
+cd $HOME/bin/msalmScript && touch config_perso.txt
+```
 #### Add $HOME/bin/msalmScript to your PATH :
 ```
 export PATH=$PATH:$HOME/bin/msalmScript
@@ -32,7 +37,7 @@ Aide : <a href=https://doc.ubuntu-fr.org/tutoriel/script_shell>Doc Ubuntu</a>
 - `editConig, -ec` :       Edite le fichier de config personnel
 - `version, -v` :          Affiche la version
 - `--testdev, --dev` :     Lance la fonction dev
-
+<a name="config"></a>
 #### Config options :
 - `autoUpdate` : Maj Majeures auto et notifications de Maj Mineures
 - `port` : Port utilisé pour le partage de fichiers
@@ -42,8 +47,9 @@ Aide : <a href=https://doc.ubuntu-fr.org/tutoriel/script_shell>Doc Ubuntu</a>
 - `ionicAppFolder` :          Chemin du projet ionic
 - `symphonyAppFolder` :     Chemin du projet Symphony
 ##### Exemple `config_perso.txt`:
+
 ```
-auto-udate=true
+auto-update=true
 port=3200
 portDefaultIonicRemote=8100
 
