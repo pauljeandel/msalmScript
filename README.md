@@ -1,17 +1,72 @@
-# Project-Envirronement
+# Script Mon sport a la maison
+## Usage
+#### Basic Usage :
+- `bash msalm.sh [COMMAND] <ARGS> --[OPTION]`
+#### Exemples :
+- `bash msalm.sh -iu --open` / `bash msalm.sh ionicupdate --open`
+- `bash msalm.sh -iu -ie`
+#### Basics commands :
+- `help, -v` :             Affiche les commandes
+- `update` :               Met à jour
+- `editScript, -es` :      Edite le script
+- `editConig, -ec` :       Edite le fichier de config personnel
+- `version, -v` :          Affiche la version
+- `--testdev, --dev` :     Lance la fonction dev
+#### Config options :
+- `port` : Port utilisé pour le partage de fichiers
+- `portDefaultIonicRemote` :              Port ionic
+- `sharedFolderDirectory` :      Emplacement du dossier partagé par default
+- `sharedFolderName` :       Nom du dosier partagé
+- `ionicAppFolder` :          Chemin du projet ionic
+- `symphonyAppFolder` :     Chemin du projet Symphony
+##### Exemple `config_perso.txt`:
+```
+port=3200
+portDefaultIonicRemote=8100
 
- -help, -h                                   Affiche ce message et quitte" <br/>
- -scriptInstall, -si                         NE PAS UTILISER GENRE VRAIMENT PAS DU TOUT Installe ce script de manière définitive.<br/>                                                                            Nécessite les privilèges Root ( Marche pas )"<br/>
-    --testDev, --dev                            Teste la fonctionnalité de développement"<br/>
- -editScript, -es                            Edite le script"<br/>
- -share, -s <PATH>                           Partage le dossier spécifié sur le réseau local. Port : $port"<br/>
-                                                Default :  $HOME$sharedFolder /msalmShared "<br/>
- -openShareRemote, -osr <PERSON>                    Ouvre le lien de partage de fichier. PERSON = [ paulj , paulm , cedric , momo ]"<br/>
- -ionicenv, -ie                              Lance l'environnement de dévellopement Ionic"<br/>
- -ionicupdate, -iu [options]                 Met à jour le projet Ionic ( Git + Nodes modules )"<br/>
-                --init <PATH> <GIT-URL>                   Inititialise le projet Ionic ( Git + Nodes modules + ionic )( TODO )"<br/>
-                --open                                    Lance le serveur ionic"<br/>
- -openIonicRemote, -oir <PERSON>             Ouvre le preview ionic à distance. PERSON = [ paulj , paulm , cedric , momo ]"<br/>
- -sfenv, -sfe                                Lance l'environnement de dévellopement Symphony ( TODO )"<br/>
- -sfupdate, -sfu [options]                   Met à jour le projet Symphony ( Git + Composer + Docktrin )"<br/>
-                --init <PATH> <GIT-URL>                   Initialise le projet Symphony ( TODO )<br/>
+sharedFolderDirectory=/Project
+sharedFolderName=Shared
+
+ionicAppFolder=/web/www/Project/IonicProject
+symphonyAppFolder=/web/www/project/SymphonyProject 
+```
+
+## Ionic
+
+### Ionic environement
+
+- `bash msalm.sh -ie` / `bash msalm.sh ionicenv` : Lance l'environnement de dévellopement Ionic
+
+### Ionic Update project
+
+- `bash msalm.sh -iu` / `bash msalm.sh ioniupdate` : Lance l'environnement de dévellopement Ionic
+#### Options : 
+- `--open` : Lance le serveur ionic
+- `--init` : Inititialise le projet Ionic ( Git + Nodes modules + ionic )
+
+## Symphony
+
+### Symphony environement
+
+- `bash msalm.sh -sfe` / `bash msalm.sh sfenv` : Lance l'environnement de dévellopement Symphony
+
+### Symphony update project
+
+- `bash msalm.sh -sfu` / `bash msalm.sh sfupdate` : Met à jour le projet Symphony ( Git + Composer + Docktrin )
+#### Option : 
+- `--init` :  Initialise le projet Symphony ( Git + Composer + Docktrin )
+
+## Share Service
+
+### Share ( Bloque l'execution du script et du terminal )
+- `bash msalm.sh -s` / `bash msalm.sh share` : Partage le dossier par default sur le réseau local et le port configuré.</br>
+- `bash msalm.sh -s <PATH>` / `bash msalm.sh share <PATH>` : Partage le dossier spécifié sur le réseau local et le port configuré.
+### Open Share Remote
+- `bash msalm.sh -osr <PERSON>` / `bash msalm.sh openShareRemote <PERSON>` : Ouvre l'acces au partage de la personne cible via le réseau.
+#### Option : 
+- `--linkFile <PATH>` :  Affiche le lien de téléchargement direct du fichier cible dans la console
+```
+bash msalm.sh -osr paulj --linkFile test.png
+```
+### Open Ionic Remote
+- `bash msalm.sh -oir <PERSON>` / `bash msalm.sh openIonicRemote <PERSON>` : Ouvre le preview ionic de la personne cible via le réseau.
