@@ -263,16 +263,7 @@ testDev() {
      echo ""
      echo "============================DEV TEST ==================================="
      echo ""
-     content=$(wget $githubReleaseLink -q -O -)
-     #put the value of the last release in a variable
-     lastRelease=$(echo "$content" | tr ' ' '\n' | grep -n /pauljeandel/msalmScript/releases/tag/ | grep -oP '(?<=tag\/)[^"]*')
 
-     LIVEVERSION=(${lastRelease[@]})
-     if [ "${LIVEVERSION[0]:2:3}" = "${version:2:3}" ];then
-          echo "Last release : $LIVEVERSION"
-     else
-          echo "not working"
-     fi
      echo ""
      echo "========================================================================"
      echo ""
