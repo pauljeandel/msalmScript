@@ -1,5 +1,5 @@
 
-name: Script checker
+name: Linter
 
 # Controls when the workflow will run
 on:
