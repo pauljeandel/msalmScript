@@ -56,7 +56,8 @@ portDefaultIonicRemote=8100
 sharedFolderDirectory=/Project
 sharedFolderName=Shared
 
-gitRepoIonic=http://ionic-repo-project-ionic
+gitRepoIonic=http://ionic-repo
+gitRepoSymphony=http://sf-repo
 ionicAppFolder=/web/www/mon-sport-maison/appli-msalm
 symphonyAppFolder=/web/www/mon-sport-maison/mon-sport-maison-sf
 
