@@ -1,6 +1,6 @@
 # Script Mon sport a la maison
 
-## Install
+## Install Script
 Works on : `Linux Shell`
 #### Clone the repo in $HOME/bin :
 ```
