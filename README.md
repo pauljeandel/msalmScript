@@ -33,7 +33,7 @@ ionicAppFolder=/web/www/Project/IonicProject
 symphonyAppFolder=/web/www/project/SymphonyProject 
 ```
 Le fichier config_perso est obligatoire
-
+# Commands :
 ## Ionic
 
 ### Ionic environement
@@ -67,7 +67,7 @@ Le fichier config_perso est obligatoire
 ### Open Share Remote
 - `:~$ bash msalm.sh -osr <PERSON>` / `bash msalm.sh openShareRemote <PERSON>` : Ouvre l'acces au partage de la personne cible via le réseau.
 #### Option : 
-- `--linkFile <PATH>` :  Affiche le lien de téléchargement direct du fichier cible dans la console
+- `--linkFile <PATH>` :  Affiche le lien de téléchargement direct ShareService du fichier cible dans la console
 ```
 :~$ bash msalm.sh -osr paulj --linkFile Project/ionic/test.png
 
