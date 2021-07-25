@@ -32,6 +32,7 @@ sharedFolderName=Shared
 ionicAppFolder=/web/www/Project/IonicProject
 symphonyAppFolder=/web/www/project/SymphonyProject 
 ```
+Le fichier config_perso est obligatoire
 
 ## Ionic
 
