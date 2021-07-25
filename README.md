@@ -6,11 +6,12 @@ Works on : `Linux Shell`
 ```
 cd $HOME/bin && git clone https://github.com/pauljeandel/msalmScript.git
 ```
-[Options et exemples plus bas](#config)
+
 #### Create a config_perso.txt file :
 ```
 cd $HOME/bin/msalmScript && touch config_perso.txt
 ```
+[Options et exemples plus bas](#config)
 #### Add $HOME/bin/msalmScript to your PATH :
 ```
 export PATH=$PATH:$HOME/bin/msalmScript
