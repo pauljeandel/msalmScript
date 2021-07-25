@@ -53,11 +53,11 @@ auto-update=true
 port=3200
 portDefaultIonicRemote=8100
 
-sharedFolderDirectory=/Project
+sharedFolderDirectory=/Bureau
 sharedFolderName=Shared
 
-ionicAppFolder=/web/www/Project/IonicProject
-symphonyAppFolder=/web/www/project/SymphonyProject 
+ionicAppFolder=/web/www/mon-sport-maison/appli-msalm
+symphonyAppFolder=/web/www/mon-sport-maison/mon-sport-maison-sf 
 ```
 Le fichier config_perso est obligatoire
 # Commands :
