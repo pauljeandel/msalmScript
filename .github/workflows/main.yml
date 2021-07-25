@@ -24,10 +24,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
+
       - name: Check script basic
         id: step_one
         run: |
+          bash msalm.sh -v
           bash msalm.sh help
           bash msalm.sh help --dev
           bash msalm.sh -h --dev
