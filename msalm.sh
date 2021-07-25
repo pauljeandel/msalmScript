@@ -16,13 +16,8 @@ ionicEnv() {
      cd "$HOME""$ionicAppFolder" || exit
      code . #Sorry cédric
      xterm -e "bash -c \"cd $HOME$ionicAppFolder && ionic serve --external  ; exec bash\"" &
-     if [ ! $? -eq 0 ]; then
-          echo "[ WARNING ] Ionic serve Failed "
-     fi
      xterm -e "bash -c \"polypane; exec bash\"" & #sorry tt le monde
-     if [ ! $? -eq 0 ]; then
-          echo "[ WARNING ] Polypane non detecté "
-     fi
+
 }
 
 ionicEnvWS() {
@@ -37,16 +32,10 @@ ionicEnvWS() {
      wmctrl -s "0"
      sleep 1
      xterm -e "bash -c \"cd $HOME$ionicAppFolder && ionic serve --external  ; exec bash\"" &
-     if [ ! $? -eq 0 ]; then
-          echo "[ WARNING ] Ionic serve Failed "
-     fi
      sleep 5
      wmctrl -s "2"
      sleep 1
      xterm -e "bash -c \"polypane; exec bash\"" & #sorry tt le monde
-     if [ ! $? -eq 0 ]; then
-          echo "[ WARNING ] Polypane non detecté "
-     fi
      sleep 3
      wmctrl -s "0"
 
@@ -160,8 +149,22 @@ openshare() {
           header="http://"
           dots=":"
           link=$header${assArray1[$2]}$dots$port
-          echo "[ INFO ] Ouverture du lien ShareService de $2 à l'adresse : $link "
-          xdg-open "$link"
+
+          if [ "$3" ] && [ "$3" = "--linkFile" ]; then
+               str2=$4
+               if [ "$4" ] && [[ ! ${str2:0:1} == "-" ]] && [[ ! ${str2:0:1} == "--" ]]; then
+                    linkToFile=$link/$4
+                    RED='\033[0;31m'
+                    NC='\033[0m' # No Color
+                    printf "Direct link for $str : ${RED}$linkToFile${NC}\n"
+
+               else
+                    echo "[ ERREUR ] Pas de fichier à ouvrir" && exit 1
+               fi
+          else
+               echo "[ INFO ] Ouverture du lien ShareService de $2 à l'adresse : $link "
+               xdg-open "$linkToFile"
+          fi
      else
           echo "[ ERREUR ] OpenShareServiceRemote Usage : bash msalm.sh -osr <PERSON> "
           #display assArray1 in one line
@@ -204,22 +207,7 @@ scriptInstall() {
           [ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
      else
           cd "$HOME"/bin || exit
-          if [ ! -d "$scriptRootFolder" ]; then
-               mkdir -m 777 "$scriptRootFolder"
-               cd "$scriptRootFolder" || exit
-               git clone "$gitProjectLink"
-               if [ ! $? -eq 0 ]; then
-                    echo "[ ERREUR ] Récupération depuis git impossible. Abandon"
-                    exit 0
-               else
-                    echo "[ INFO ] Script installé !"
-               fi
-               echo "[ IMPORTANT ] Ajoutez la ligne < export PATH=$PATH:$HOME/bin/$scriptRootFolder > à votre fichier bashrc"
-               echo "Man : bash msalm.sh -help "
-          else
-               echo "[ ERROR ] Le dossier $scriptRootFolder existe déjà, installation impossible."
-               exit 1
-          fi
+          #TODO
      fi
 }
 
@@ -295,7 +283,7 @@ helper() {
      echo "[ INFO ] Usage : bash msalm.sh [COMMAND] <ARGS> --[OPTION] "
      echo ""
      echo "  help, -h                                   Affiche ce message et quitte"
-     echo "  scriptInstall, -si                         NE PAS UTILISER GENRE VRAIMENT PAS DU TOUT Installe ce script de manière définitive. Nécessite les privilèges Root ( Marche pas )"
+     echo "  scriptInstall, -si                         Installe ce script de manière définitive. Nécessite les privilèges Root ( Marche pas )"
      echo "  --testDev, --dev                           Teste la fonctionnalité de développement"
      echo "  editScript, -es                            Edite le script sur VsCode"
      echo "  editConfig, -ec                            Edite le fichier de config personnel avec nano"
@@ -305,6 +293,7 @@ helper() {
      echo "  share, -s <PATH>                           Partage le dossier spécifié sur le réseau local. Port : $port"
      echo "                                             Default :  $HOME$sharedFolderDirectory/$sharedFolderName "
      echo "  openShareRemote, -osr <PERSON>             Ouvre le lien de partage de fichier. PERSON = [ paulj , paulm , cedric , momo ]"
+     echo "              --linkFile                                Affiche le lien de léléchargement direct du fichier cible "
      echo "  openIonicRemote, -oir <PERSON>             Ouvre le preview ionic à distance. PERSON = [ paulj , paulm , cedric , momo ]"
      echo ""
      echo "  ionicenv, -ie                              Lance l'environnement de dévellopement Ionic"
@@ -312,9 +301,9 @@ helper() {
      echo "              --init                                    Inititialise le projet Ionic ( Git + Nodes modules + ionic )( TODO )"
      echo "              --open                                    Lance le serveur ionic"
      echo ""
-     echo "  sfenv, -sfe                                Lance l'environnement de dévellopement Symphony ( TODO )"
+     echo "  sfenv, -sfe                                Lance l'environnement de dévellopement Symphony ( TODO )" #TODO
      echo "  sfupdate, -sfu [options]                   Met à jour le projet Symphony ( Git + Composer + Docktrin )"
-     echo "              --init                                    Initialise le projet Symphony ( TODO )"
+     echo "              --init                                    Initialise le projet Symphony ( TODO )" #TODO
      echo ""
      echo "[ INFO ] Git project : $gitProjectLink"
      echo "[ INFO ] Release note : https://github.com/$gitAccount/$repoName/releases/tag/$version"
@@ -322,11 +311,21 @@ helper() {
      echo "------------------------------------------------------------------------------------------------------------------------------"
 }
 
-source config_default.txt
-source config_perso.txt
-echo ""
-checkForMajorUpdate
-echo ""
+
+
+if [ ! -f "config_default.txt" ] && [ ! -f "config_default.txt" ]; then
+     source config_default.txt
+     source config_perso.txt
+else
+     echo "[ ERREUR ] No config file"
+     exit 1
+fi
+if [ $autoUpdate = "true" ]; then
+     checkForMajorUpdate
+     echo ""
+else
+     echo "[ INFO ] Mise à jour auto désactivées"
+fi
 until [ ! "$1" ]; do
      case $1 in
      "-h" | "help") helper ;;
@@ -337,6 +336,10 @@ until [ ! "$1" ]; do
      "openShareRemote" | "-osr")
           openshare $@
           if [[ ! ${str:0:1} == "-" ]]; then
+               shift
+          fi
+          if [[ $2 == "--linkFile" ]] && [[ ! ${str2:0:1} == "-" ]]; then
+               shift
                shift
           fi
           ;;
