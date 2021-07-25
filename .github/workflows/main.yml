@@ -5,9 +5,9 @@ name: Script checker
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ main , reLint ]
   pull_request:
-    branches: [ main ]
+    branches: [ main , reLint ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -15,7 +15,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  scriptChech:
+  scriptcheck:
+    name: Script Check
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -33,13 +34,17 @@ jobs:
           bash msalm.sh --dev -h
           bash msalm.sh --dev help
 
-  linterCheck:
+  lintercheck:
+    name: Linter Check
+    needs: scriptcheck
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-
-      - name: Run shellcheck with reviewdog
-        # You may pin to the exact commit or the version.
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: Shellcheck
         # uses: reviewdog/action-shellcheck@2d9719b7d73354ef50438c65504d40769337a0cc
         uses: reviewdog/action-shellcheck@v1.6.0
         with:
