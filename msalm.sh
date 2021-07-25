@@ -160,8 +160,22 @@ openshare() {
           header="http://"
           dots=":"
           link=$header${assArray1[$2]}$dots$port
-          echo "[ INFO ] Ouverture du lien ShareService de $2 à l'adresse : $link "
-          xdg-open "$link"
+
+          if [ "$3" ] && [ "$3" = "--linkFile" ]; then
+               str2=$4
+               if [ "$4" ] && [[ ! ${str2:0:1} == "-" ]] && [[ ! ${str2:0:1} == "--" ]]; then
+                    linkToFile=$link/$4
+                    RED='\033[0;31m'
+                    NC='\033[0m' # No Color
+                    printf "Direct link for $str > $str2 : ${RED}$linkToFile${NC}\n"
+
+               else
+                    echo "[ ERREUR ] Pas de fichier à ouvrir" && exit 1
+               fi
+          else
+               echo "[ INFO ] Ouverture du lien ShareService de $2 à l'adresse : $link "
+               xdg-open "$linkToFile"
+          fi
      else
           echo "[ ERREUR ] OpenShareServiceRemote Usage : bash msalm.sh -osr <PERSON> "
           #display assArray1 in one line
@@ -305,6 +319,7 @@ helper() {
      echo "  share, -s <PATH>                           Partage le dossier spécifié sur le réseau local. Port : $port"
      echo "                                             Default :  $HOME$sharedFolderDirectory/$sharedFolderName "
      echo "  openShareRemote, -osr <PERSON>             Ouvre le lien de partage de fichier. PERSON = [ paulj , paulm , cedric , momo ]"
+     echo "              --linkFile                                Affiche le lien de léléchargement direct du fichier cible "
      echo "  openIonicRemote, -oir <PERSON>             Ouvre le preview ionic à distance. PERSON = [ paulj , paulm , cedric , momo ]"
      echo ""
      echo "  ionicenv, -ie                              Lance l'environnement de dévellopement Ionic"
@@ -325,7 +340,7 @@ helper() {
 source config_default.txt
 source config_perso.txt
 echo ""
-checkForMajorUpdate
+#checkForMajorUpdate
 echo ""
 until [ ! "$1" ]; do
      case $1 in
@@ -337,6 +352,10 @@ until [ ! "$1" ]; do
      "openShareRemote" | "-osr")
           openshare $@
           if [[ ! ${str:0:1} == "-" ]]; then
+               shift
+          fi
+          if [[ $2 == "--linkFile" ]] && [[ ! ${str2:0:1} == "-" ]]; then
+               shift
                shift
           fi
           ;;
