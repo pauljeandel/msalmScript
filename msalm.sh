@@ -167,7 +167,7 @@ openshare() {
                     linkToFile=$link/$4
                     RED='\033[0;31m'
                     NC='\033[0m' # No Color
-                    printf "Direct link for $str > $str2 : ${RED}$linkToFile${NC}\n"
+                    printf "Direct link for $str : ${RED}$linkToFile${NC}\n"
 
                else
                     echo "[ ERREUR ] Pas de fichier à ouvrir" && exit 1
@@ -337,11 +337,21 @@ helper() {
      echo "------------------------------------------------------------------------------------------------------------------------------"
 }
 
-source config_default.txt
-source config_perso.txt
-echo ""
-#checkForMajorUpdate
-echo ""
+
+
+if [ ! -f "config_default.txt" ] && [ ! -f "config_default.txt" ]; then
+     source config_default.txt
+     source config_perso.txt
+else
+     echo "[ ERREUR ] No config file"
+     exit 1
+fi
+if [ $autoUpdate = "true" ]; then
+     checkForMajorUpdate
+     echo ""
+else
+     echo "[ INFO ] Mise à jour auto désactivées"
+fi
 until [ ! "$1" ]; do
      case $1 in
      "-h" | "help") helper ;;
