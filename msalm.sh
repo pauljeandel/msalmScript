@@ -207,22 +207,7 @@ scriptInstall() {
           [ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
      else
           cd "$HOME"/bin || exit
-          if [ ! -d "$scriptRootFolder" ]; then
-               mkdir -m 777 "$scriptRootFolder"
-               cd "$scriptRootFolder" || exit
-               git clone "$gitProjectLink"
-               if [ ! $? -eq 0 ]; then
-                    echo "[ ERREUR ] Récupération depuis git impossible. Abandon"
-                    exit 0
-               else
-                    echo "[ INFO ] Script installé !"
-               fi
-               echo "[ IMPORTANT ] Ajoutez la ligne < export PATH=$PATH:$HOME/bin/$scriptRootFolder > à votre fichier bashrc"
-               echo "Man : bash msalm.sh -help "
-          else
-               echo "[ ERROR ] Le dossier $scriptRootFolder existe déjà, installation impossible."
-               exit 1
-          fi
+          #TODO
      fi
 }
 
