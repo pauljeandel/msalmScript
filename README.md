@@ -9,6 +9,10 @@ cd $HOME/bin && git clone https://github.com/pauljeandel/msalmScript.git
 ```
 export PATH=$PATH:$HOME/bin/msalmScript
 ```
+## Contribuer :
+ Via issue github. Deux options :
+ - `Rapport de bug`
+ - `Nouvelle fonctionnalité`
 ## Usage
 #### Basic Usage :
 - `:~$ bash msalm.sh [COMMAND] <ARGS> --[OPTION]`
@@ -87,3 +91,5 @@ Le fichier config_perso est obligatoire
 ```
 ### Open Ionic Remote
 - `:~$ bash msalm.sh -oir <PERSON>` / `bash msalm.sh openIonicRemote <PERSON>` : Ouvre le preview ionic de la personne cible via le réseau.
+
+
