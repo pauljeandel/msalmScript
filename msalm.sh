@@ -16,13 +16,8 @@ ionicEnv() {
      cd "$HOME""$ionicAppFolder" || exit
      code . #Sorry cédric
      xterm -e "bash -c \"cd $HOME$ionicAppFolder && ionic serve --external  ; exec bash\"" &
-     if [ ! $? -eq 0 ]; then
-          echo "[ WARNING ] Ionic serve Failed "
-     fi
      xterm -e "bash -c \"polypane; exec bash\"" & #sorry tt le monde
-     if [ ! $? -eq 0 ]; then
-          echo "[ WARNING ] Polypane non detecté "
-     fi
+
 }
 
 ionicEnvWS() {
@@ -37,16 +32,10 @@ ionicEnvWS() {
      wmctrl -s "0"
      sleep 1
      xterm -e "bash -c \"cd $HOME$ionicAppFolder && ionic serve --external  ; exec bash\"" &
-     if [ ! $? -eq 0 ]; then
-          echo "[ WARNING ] Ionic serve Failed "
-     fi
      sleep 5
      wmctrl -s "2"
      sleep 1
      xterm -e "bash -c \"polypane; exec bash\"" & #sorry tt le monde
-     if [ ! $? -eq 0 ]; then
-          echo "[ WARNING ] Polypane non detecté "
-     fi
      sleep 3
      wmctrl -s "0"
 
