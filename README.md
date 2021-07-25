@@ -42,7 +42,7 @@ Aide : <a href=https://doc.ubuntu-fr.org/tutoriel/script_shell>Doc Ubuntu</a>
 - `autoUpdate` : Maj Majeures auto et notifications de Maj Mineures
 - `port` : Port utilisé pour le partage de fichiers
 - `portDefaultIonicRemote` :              Port ionic
-- `sharedFolderDirectory` :      Emplacement du dossier partagé par default
+- `sharedFolderDirectory` :      Emplacement du dossier partagé par default $HOME/bin<PATH>
 - `sharedFolderName` :       Nom du dosier partagé
 - `ionicAppFolder` :          Chemin du projet ionic
 - `symphonyAppFolder` :     Chemin du projet Symphony
