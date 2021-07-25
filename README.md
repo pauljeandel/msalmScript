@@ -10,12 +10,14 @@ cd $HOME/bin && git clone https://github.com/pauljeandel/msalmScript.git
 ```
 export PATH=$PATH:$HOME/bin/msalmScript
 ```
+Aide : <a href=https://doc.ubuntu-fr.org/tutoriel/script_shell>Doc Ubuntu</a>
 ## Contribuer :
  Via ***issue github***. Trois options :
  - `Rapport de bug`
  - `Nouvelle fonctionnalité`
  - `Amélioration`
-</br></br>***Creer une branche du même nom que l'issue puis une Pull Request liée à l'issue.***
+</br></br>***Creer une branche du même nom que l'issue puis une Pull Request liée à l'issue.***</br></br>
+<a href=https://github.com/pauljeandel/msalmScript/contribute>***Good first issues***</a>
 ## Usage
 #### Basic Usage :
 - `:~$ bash msalm.sh [COMMAND] <ARGS> --[OPTION]`
