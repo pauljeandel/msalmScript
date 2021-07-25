@@ -10,9 +10,10 @@ cd $HOME/bin && git clone https://github.com/pauljeandel/msalmScript.git
 export PATH=$PATH:$HOME/bin/msalmScript
 ```
 ## Contribuer :
- Via issue github. Deux options :
+ Via issue github. Trois options :
  - `Rapport de bug`
  - `Nouvelle fonctionnalité`
+ - `Amélioration`
 ## Usage
 #### Basic Usage :
 - `:~$ bash msalm.sh [COMMAND] <ARGS> --[OPTION]`
