@@ -213,66 +213,69 @@ scriptInstall() {
 
 checkForMajorUpdate() {
 
-    content=$(wget "$githubReleaseAPILink" -q -O -)
-    #put the value of the last release in a variable
-    lastRelease=$(echo "$content" | tr ' ' '\n' | grep -n refs/tags/ | grep -oP '(?<=refs\/tags\/)[^"]*')
+     content=$(wget $githubReleaseLink -q -O -)
+     #put the value of the last release in a variable
+     lastRelease=$(echo "$content" | tr ' ' '\n' | grep -n /pauljeandel/msalmScript/releases/tag/ | grep -oP '(?<=tag\/)[^"]*')
 
-    if [ "${lastRelease:0:1}" ] && [ "${lastRelease:0:1}" -gt "${version:0:1}" ]; then
-        echo ""
-        echo "----------------------------MISE A JOUR MAJEURE DISPONIBLE-----------------------------"
-        echo "Latest version : ${lastRelease:0:1}.X sur $gitProjectLink"
-        echo "Current version : $version.X"
-        echo "---------------------------------------------------------------------------------------"
-        echo ""
-        echo "> RUNING : bash msalm.sh update"
-        sleep 3
-        update
-        echo "[ INFO ] Will Re-run last command"
-        sleep 2
+     if [ "${lastRelease:0:1}" ] && [ "${lastRelease:0:1}" -gt "${version:0:1}" ]; then
+          echo ""
+          echo "----------------------------MISE A JOUR MAJEURE DISPONIBLE-----------------------------"
+          echo "Latest version : ${lastRelease:0:1}.X sur $gitProjectLink"
+          echo "Current version : $version.X"
+          echo "---------------------------------------------------------------------------------------"
+          echo ""
+          echo "> RUNING : bash msalm.sh update"
+          sleep 3
+          update
+          sleep 1
+          exit 0
 
-        exit 0
+     else
+          checkForMinorUpdate
 
-    else
-        checkForMinorUpdate
-
-    fi
+     fi
 }
 
 checkForMinorUpdate() {
 
-    content=$(wget "$githubReleaseAPILink" -q -O -)
-    #put the value of the last release in a variable
-    Releases=$(echo "$content" | tr ' ' '\n' | grep -n refs/tags/ | grep -oP '(?<=refs\/tags\/)[^"]*')
-    #echo "Last release : $lastRelease"
-    lastRelease="${Releases##*$'\n'}"
-    if [ "${lastRelease:2:3}" ] && [ "${lastRelease:2:3}" -gt "${version:2:3}" ]; then
-        echo ""
-        echo "----------------------------MISE A JOUR MINEURE DISPONIBLE-----------------------------"
-        echo "Latest version : ${lastRelease:0:3} sur $gitProjectLink"
-        echo "Current version : $version"
-        echo "---------------------------------------------------------------------------------------"
-        echo ""
-        echo "> PLEASE RUN : bash msalm.sh update"
-        sleep 2
+     content=$(wget $githubReleaseLink -q -O -)
+     #put the value of the last release in a variable
+     lastRelease=$(echo "$content" | tr ' ' '\n' | grep -n /pauljeandel/msalmScript/releases/tag/ | grep -oP '(?<=tag\/)[^"]*')
+     LIVEVERSION=(${lastRelease[@]})
 
-    else
-        if [ ! $? -eq 0 ]; then
-            echo "[ ERREUR ] GitHub API Down or API Limit exceeded - Will retry later"
-            echo "[ INFO ] Actual Version : $version"
-        else
-            echo "[INFO] Script a jour. Version : $version"
-        fi
-    fi
+     if [ "${LIVEVERSION[0]:2:3}" ] && [ "${LIVEVERSION[0]:2:3}" -gt "${version:2:3}" ]; then
+          echo ""
+          echo "----------------------------MISE A JOUR MINEURE DISPONIBLE-----------------------------"
+          echo "Latest version : ${LIVEVERSION[0]} sur $gitProjectLink"
+          echo "Current version : $version"
+          echo "---------------------------------------------------------------------------------------"
+          echo ""
+          echo "> PLEASE RUN : bash msalm.sh update"
+          sleep 2
+
+     else
+          echo "[INFO] Script a jour. Version : $version"
+          sleep 1
+     fi
 }
 
 testDev() {
-    echo ""
-    echo "============================DEV TEST ==================================="
-    echo ""
+     echo ""
+     echo "============================DEV TEST ==================================="
+     echo ""
+     content=$(wget $githubReleaseLink -q -O -)
+     #put the value of the last release in a variable
+     lastRelease=$(echo "$content" | tr ' ' '\n' | grep -n /pauljeandel/msalmScript/releases/tag/ | grep -oP '(?<=tag\/)[^"]*')
 
-    echo ""
-    echo "========================================================================"
-    echo ""
+     LIVEVERSION=(${lastRelease[@]})
+     if [ "${LIVEVERSION[0]:2:3}" = "${version:2:3}" ];then
+          echo "Last release : $LIVEVERSION"
+     else
+          echo "not working"
+     fi
+     echo ""
+     echo "========================================================================"
+     echo ""
 
 }
 

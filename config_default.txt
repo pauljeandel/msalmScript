@@ -4,7 +4,7 @@ gitAccount=pauljeandel
 repoName=msalmScript
 scriptRootFolder=msalmScript
 gitProjectLink=https://github.com/pauljeandel/msalmScript.git
-githubReleaseAPILink=https://api.github.com/repos/pauljeandel/msalmScript/git/refs/tags
+githubReleaseLink=https://github.com/pauljeandel/msalmScript/releases
 
 infoaAddDev="Ajout d'un développeur : ci-dessous + msalm.sh -> (openIonicRemote() + openShare()) "
 ipPaulJ="192.168.1.28"
