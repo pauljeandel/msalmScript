@@ -283,7 +283,7 @@ helper() {
      echo "[ INFO ] Usage : bash msalm.sh [COMMAND] <ARGS> --[OPTION] "
      echo ""
      echo "  help, -h                                   Affiche ce message et quitte"
-     echo "  scriptInstall, -si                         NE PAS UTILISER GENRE VRAIMENT PAS DU TOUT Installe ce script de manière définitive. Nécessite les privilèges Root ( Marche pas )"
+     echo "  scriptInstall, -si                         Installe ce script de manière définitive. Nécessite les privilèges Root ( Marche pas )"
      echo "  --testDev, --dev                           Teste la fonctionnalité de développement"
      echo "  editScript, -es                            Edite le script sur VsCode"
      echo "  editConfig, -ec                            Edite le fichier de config personnel avec nano"
