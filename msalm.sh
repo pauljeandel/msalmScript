@@ -311,12 +311,15 @@ helper() {
     echo "------------------------------------------------------------------------------------------------------------------------------"
 }
 
+
 if [ -f "config_default.txt" ]; then
     source config_default.txt
+
 else
     echo "[ ERREUR ] No config file"
     exit 1
 fi
+
 if [ -f "config_perso.txt" ]; then
     source config_perso.txt
     if [ $autoupdate = "true" ]; then
@@ -331,6 +334,7 @@ else
     printf "${RED}[ ERREUR ] No personnal config file - Script Wont Work${NC}\n"
     printf "${RED}Reduce to : -h --dev Working for Github integration testing only.${NC}\n"
     helper
+
 fi
 
 until [ ! "$1" ]; do
