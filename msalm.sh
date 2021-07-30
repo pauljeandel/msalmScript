@@ -18,7 +18,7 @@ ionicEnv() {
      code . #Sorry cédric
      xterm -e "bash -c \"cd $HOME$ionicAppFolder && ionic serve --external  ; exec bash\"" &
      if [$polypane = "true" ]; then
-          xterm -e "bash -c \"polypane; exec bash\"" & 
+          xterm -e "bash -c \"polypane; exec bash\"" &
      fi
      if [$barrier = "true"]; then
           xterm -e "bash -c \"barrier; exec bash\"" &
@@ -41,8 +41,8 @@ ionicEnvWS() {
      sleep 5
      wmctrl -s "2"
      sleep 1
-          if [$polypane = "true" ]; then
-          xterm -e "bash -c \"polypane; exec bash\"" & 
+     if [$polypane = "true" ]; then
+          xterm -e "bash -c \"polypane; exec bash\"" &
      fi
      if [$barrier = "true"]; then
           xterm -e "bash -c \"barrier; exec bash\"" &
