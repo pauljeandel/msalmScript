@@ -52,6 +52,8 @@ Aide : <a href=https://doc.ubuntu-fr.org/tutoriel/script_shell>Doc Ubuntu</a>
 
 ```
 autoupdate=true
+polypane=false
+barrier=false
 port=3200
 portDefaultIonicRemote=8100
 
